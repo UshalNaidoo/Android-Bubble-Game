@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pic1"
+    android:orientation="vertical" >
+
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/barlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttons_background"
+        android:focusable="false" >
+     <TextView
+            android:id="@+id/positionTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="false"
+            android:text="Rate POP?"
+            android:textSize="24dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#1D4088" />
+     </RelativeLayout>
+
+
+<Button
+        android:id="@+id/button1"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+       android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp"
+        android:background="@drawable/buttons_background"
+        android:text="Rate"
+        android:textColor="@drawable/button_color"
+        android:textSize="20dp" />
+
+<Button
+        android:id="@+id/button2"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+       android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/buttons_background"
+        android:text="No Thanks"
+        android:textColor="@drawable/button_color"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barlayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        android:focusable="false"
+        android:text="If you enjoy playing POP, can you please support us by rating it?"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1D4088"
+        android:gravity="center" 
+        android:textSize="24dp" />
+
+</RelativeLayout>
