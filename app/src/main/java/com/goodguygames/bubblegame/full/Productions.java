@@ -48,7 +48,6 @@ public class Productions extends Activity {
     mp1.start();
 
     if (myDbHelper.getisSound().equals("1")) {
-
       mp1.setVolume(0, 1);
     } else {
       mp1.setVolume(0, 0);
@@ -64,7 +63,6 @@ public class Productions extends Activity {
         frameAnimation.start();
       }
     });
-
     Thread splashTread = new Thread() {
       @Override
       public void run() {
@@ -82,7 +80,6 @@ public class Productions extends Activity {
           finish();
           mp1.release();
           startActivity(new Intent("com.goodguygames.bubblegame.full.Main"));
-
         }
       }
     };

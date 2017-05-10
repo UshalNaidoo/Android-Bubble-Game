@@ -3,30 +3,25 @@ package com.goodguygames.bubblegame.model;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-/**
- * Created by ushal.naidoo on 10/05/17.
- */
-
 public abstract class Bubble {
   private Bitmap bitmap;        // the actual bitmap
   private int x;                        // the X coordinate
   private int y;                        // the Y coordinate
   private boolean touched;        // if droid is touched/picked up
-  private Speed speed;        // the speed with its directions
+  private Velocity velocity;        // the velocity with its directions
 
 
-  public Bubble(int velocity, int x, int y) {
+  public Bubble(int x, int y) {
     this.x = x;
     this.y = y;
-    this.speed = new Speed(velocity, Speed.Direction.UP);
   }
 
-  public Speed getSpeed() {
-    return speed;
+  public Velocity getVelocity() {
+    return velocity;
   }
 
-  public void setSpeed(Speed speed) {
-    this.speed = speed;
+  public void setVelocity(Velocity velocity) {
+    this.velocity = velocity;
   }
 
   public Bitmap getBitmap() {
@@ -60,6 +55,7 @@ public abstract class Bubble {
   public void setTouched(boolean touched) {
     this.touched = touched;
   }
+
   /**
    * Handles the Action Down event. If the event happens on the bitmap surface
    * then the touched state is set to <code>true</code> otherwise to <code>false</code>
@@ -85,7 +81,7 @@ public abstract class Bubble {
    */
   public void update() {
     if (!touched) {
-      y += (speed.getYv() * speed.getyDirection());
+      y += (velocity.getYv() * velocity.getyDirection());
     }
   }
 

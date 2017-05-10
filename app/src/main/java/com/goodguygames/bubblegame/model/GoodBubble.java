@@ -9,9 +9,10 @@ import com.goodguygames.bubblegame.full.R;
 
 public class GoodBubble extends Bubble {
 
-  public GoodBubble(Context context, int i, int x, int y) {
-    super(i , x, y);
+  public GoodBubble(Context context, int speed, int x, int y) {
+    super(x, y);
     this.setBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.bubble));
+    this.setVelocity(new Velocity(speed, Direction.UP));
   }
 
 }

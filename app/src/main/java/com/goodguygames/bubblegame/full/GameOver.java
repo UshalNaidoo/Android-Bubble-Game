@@ -33,7 +33,6 @@ public class GameOver extends Activity {
     super.onCreate(savedInstanceState);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    // setContentView(new MainGamePanel(this));
     setContentView(R.layout.gameover);
     yourScore = (TextView) findViewById(R.id.yourscore);
     String score = getIntent().getStringExtra("score");
@@ -100,9 +99,7 @@ public class GameOver extends Activity {
         }
       }
     });
-
   }
-
 
   @Override
   protected void onResume() {
@@ -112,7 +109,6 @@ public class GameOver extends Activity {
     } catch (IOException ioe) {
       throw new Error("Unable to create database");
     }
-
     try {
       myDbHelper.openDataBase();
 
@@ -135,7 +131,6 @@ public class GameOver extends Activity {
     if (requestCode == 1) {
       if (resultCode == RESULT_OK) {
         this.finish();
-
       }
     }
   }
@@ -148,4 +143,5 @@ public class GameOver extends Activity {
     }
     return false;
   }
+
 }

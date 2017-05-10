@@ -5,32 +5,20 @@ package com.goodguygames.bubblegame.model;
 
 import java.util.Random;
 
-public class Speed {
+public class Velocity {
 
   private float yv = 1;
   private float xv = 1;
   private int yDirection;
 
-  public enum Direction {
-    UP (-1),
-    DOWN (1),
-    LEFT (-10),
-    RIGHT (10);
-
-    public int value;
-    Direction (int i) {
-      this.value = i;
-    }
-  }
-
-  public Speed(int i, Direction direction) {
+  public Velocity(int speed, Direction direction) {
     Random ran = new Random();
-    int spd = ran.nextInt(2) + 3 + i;
+    int spd = ran.nextInt(2) + 3 + speed;
     this.setyDirection(direction.value);
     this.yv = spd;
   }
 
-  public Speed(float xv, float yv) {
+  public Velocity(float xv, float yv) {
     this.yv = yv;
   }
 

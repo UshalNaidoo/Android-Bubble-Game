@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.goodguygames.bubblegame.model.Speed;
+import com.goodguygames.bubblegame.model.Direction;
 import com.goodguygames.bubblegame.model.GoodBubble;
 import com.goodguygames.bubblegame.model.Heart;
 
@@ -81,13 +81,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     space5 = space4 + spacer;
 
     bubble1 = new GoodBubble(this.getContext(), speedCount, space1, screenHeight + 500);
-    bubble2 = new GoodBubble(this.getContext(), speedCount, space2,
-                       screenHeight + 500);
-    bubble3 = new GoodBubble(this.getContext(), speedCount, space3, screenHeight);
-    bubble4 = new GoodBubble(this.getContext(), speedCount, space4,
-                       screenHeight + 500);
-    bubble5 = new GoodBubble(this.getContext(), speedCount, space5,
-                       screenHeight + 500);
+    bubble2 = new GoodBubble(this.getContext(), speedCount, space2, screenHeight + 500);
+    bubble3 = new GoodBubble(this.getContext(), speedCount, space3, screenHeight + 500);
+    bubble4 = new GoodBubble(this.getContext(), speedCount, space4, screenHeight + 500);
+    bubble5 = new GoodBubble(this.getContext(), speedCount, space5, screenHeight + 500);
   }
 
   @Override
@@ -118,9 +115,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
       // delegating event handling to the droid
       if (bubble1 != null) {
         bubble1.handleActionDown((int) event.getX(), (int) event.getY());
-
         if (bubble1.isTouched()) {
-
           score++;
           ((QuickPlay) getContext()).popSound();
           ((QuickPlay) getContext()).setScore(Integer.toString(score));
@@ -134,7 +129,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             bomb1 = new GoodBubble(this.getContext(), speedCount, space1,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart1 = new Heart(BitmapFactory.decodeResource(getResources(), R.drawable.heart_bub), speedCount, space1, 0);
+            heart1 = new Heart(this.getContext(), speedCount, space1, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
@@ -166,7 +161,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             bomb2 = new GoodBubble(this.getContext(), speedCount, space2,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart2 = new Heart(BitmapFactory.decodeResource(getResources(), R.drawable.heart_bub), speedCount, space2, 0);
+            heart2 = new Heart(this.getContext(), speedCount, space2, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
@@ -198,7 +193,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             bomb3 = new GoodBubble(this.getContext(), speedCount, space3,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart3 = new Heart(BitmapFactory.decodeResource(getResources(), R.drawable.heart_bub), speedCount, space3, 0);
+            heart3 = new Heart(this.getContext(), speedCount, space3, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
@@ -230,7 +225,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
             bomb4 = new GoodBubble(this.getContext(), speedCount, space4,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart4 = new Heart(BitmapFactory.decodeResource(getResources(), R.drawable.heart_bub), speedCount, space4, 0);
+            heart4 = new Heart(this.getContext(), speedCount, space4, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
@@ -802,9 +797,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   }
 
   public void checkHit(GoodBubble droid) {
-    if (droid.getSpeed().getyDirection() == Speed.Direction.UP.value
+    if (droid.getVelocity().getyDirection() == Direction.UP.value
         && droid.getY() - droid.getBitmap().getHeight() / 2 <= 0) {
-      //droid.getSpeed().toggleYDirection();
+      //droid.getVelocity().toggleYDirection();
 
       if ((droid == bubble1) || (droid == bubble2_1) || (droid == bubble5_1)) {
         ((QuickPlay) getContext()).bonkSound();
@@ -897,7 +892,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   }
 
   public void checkHit1(Heart droid) {
-    if (droid.getSpeed().getyDirection() == Speed.Direction.DOWN.value
+    if (droid.getVelocity().getyDirection() == Direction.DOWN.value
         && droid.getY() + droid.getBitmap().getHeight() / 2 >= getHeight()) {
 
       //Bombs

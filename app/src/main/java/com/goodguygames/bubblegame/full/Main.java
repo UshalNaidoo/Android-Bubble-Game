@@ -24,7 +24,6 @@ import java.io.IOException;
 
 public class Main extends Activity {
 
-  private static final String TAG = "fb";
   private Button ButtonPlay;
   private MediaPlayer mp;
   private DataBaseHelper myDbHelper;
@@ -38,7 +37,6 @@ public class Main extends Activity {
     super.onCreate(savedInstanceState);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    // setContentView(new MainGamePanel(this));
     setContentView(R.layout.main);
 
     this.mutesound = (ImageButton) this.findViewById(R.id.muteUnmute);
@@ -60,36 +58,12 @@ public class Main extends Activity {
     played = Integer.parseInt(myDbHelper.getTimesPlayed());
     highscr = (TextView) findViewById(R.id.textView1);
     highscr.setText("High Score : " + myDbHelper.getHighScore());
-    if ((played % 40 == 0) && (played != 0)) {
-      if (isOnline()) {
-        String rated = myDbHelper.getIsRated();
-        if (rated.equals("0")) {
-          Intent scorepage = new Intent(Main.this, Rate.class);
-          startActivity(scorepage);
-        }
-      }
-    }
     if (myDbHelper.getisSound().equals("1")) {
       isMute = false;
       mutesound.setImageResource(R.drawable.button_unmute);
     } else {
       isMute = true;
       mutesound.setImageResource(R.drawable.button_mute);
-    }
-
-    if (isOnline()) {
-      String FB_ID = myDbHelper.getFBID();
-      if (FB_ID.equals("0")) {
-      } else {
-        String FName = myDbHelper.getFname();
-        String LName = myDbHelper.getL_name();
-        int serverScore = Integer.parseInt(myDbHelper.getServerScore());
-        int highScr = Integer.parseInt(myDbHelper.getHighScore());
-        if (highScr > serverScore) {
-          //ConnectToServer.uploadScore(this, FB_ID, Integer.toString(highScr), FName, LName);
-          myDbHelper.setServerScore(Integer.toString(highScr));
-        }
-      }
     }
 
     this.ButtonPlay = (Button) this.findViewById(R.id.button1);
@@ -142,7 +116,6 @@ public class Main extends Activity {
 
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                  // TODO Auto-generated method stub
                   mp.release();
                 }
 
@@ -160,7 +133,6 @@ public class Main extends Activity {
 
   @Override
   protected void onDestroy() {
-    //	 mp1.release();
     myDbHelper.close();
     super.onDestroy();
   }
@@ -190,66 +162,28 @@ public class Main extends Activity {
       isMute = true;
       mutesound.setImageResource(R.drawable.button_mute);
     }
-    if ((played % 40 == 0) && (played != 0)) {
-      if (isOnline()) {
-        String rated = myDbHelper.getIsRated();
-        if (rated.equals("0")) {
-          played++;
-          Intent scorepage = new Intent(Main.this, Rate.class);
-          startActivity(scorepage);
-        }
-      }
-    }
-
-    if (isOnline()) {
-      String FB_ID = myDbHelper.getFBID();
-      if (FB_ID.equals("0")) {
-      } else {
-        String FName = myDbHelper.getFname();
-        String LName = myDbHelper.getL_name();
-        int serverScore = Integer.parseInt(myDbHelper.getServerScore());
-        int highScr = Integer.parseInt(myDbHelper.getHighScore());
-        if (highScr > serverScore) {
-          myDbHelper.setServerScore(Integer.toString(highScr));
-        }
-      }
-    } else {
-    }
     super.onResume();
   }
 
   @Override
   protected void onStop() {
-    //	 mp1.release();
-    //myDbHelper.close();
     super.onStop();
   }
 
   @Override
   protected void onPause() {
-    //	 mp1.release();
-    //	myDbHelper.close();
     super.onPause();
   }
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    try {
-//      facebook.authorizeCallback(requestCode, resultCode, data);
-    } catch (Exception e) {
-      //dialog.dismiss();
-    }
-
   }
 
   public boolean isOnline() {
     ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo netInfo = cm.getActiveNetworkInfo();
-    if (netInfo != null && netInfo.isConnected()) {
-      return true;
-    }
-    return false;
+    return netInfo != null && netInfo.isConnected();
   }
 
   @Override
