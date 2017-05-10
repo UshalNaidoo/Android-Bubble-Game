@@ -5,12 +5,6 @@ package com.goodguygames.bubblegame.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.MotionEvent;
-
-import com.goodguygames.bubblegame.components.HeartSpeed;
-import com.goodguygames.bubblegame.components.Speed;
 
 /**
  * This is a test droid that is dragged, dropped, moved, smashed against the wall and done other
@@ -24,13 +18,13 @@ public class Heart {
   private int x;                        // the X coordinate
   private int y;                        // the Y coordinate
   private boolean touched;        // if droid is touched/picked up
-  private HeartSpeed speed;        // the speed with its directions
+  private Speed speed;        // the speed with its directions
 
   public Heart(Bitmap bitmap, int i, int x, int y) {
     this.bitmap = bitmap;
     this.x = x;
     this.y = y;
-    this.speed = new HeartSpeed(i);
+    this.speed = new Speed(i, Speed.Direction.DOWN);
   }
 
   public Bitmap getBitmap() {
@@ -65,11 +59,11 @@ public class Heart {
     this.touched = touched;
   }
 
-  public HeartSpeed getSpeed() {
+  public Speed getSpeed() {
     return speed;
   }
 
-  public void setSpeed(HeartSpeed speed) {
+  public void setSpeed(Speed speed) {
     this.speed = speed;
   }
 
@@ -90,7 +84,7 @@ public class Heart {
 
 
   /**
-   * Handles the {@link MotionEvent.ACTION_DOWN} event. If the event happens on the bitmap surface
+   * Handles the ACTION_DOWN event. If the event happens on the bitmap surface
    * then the touched state is set to <code>true</code> otherwise to <code>false</code>
    *
    * @param eventX - the event's X coordinate

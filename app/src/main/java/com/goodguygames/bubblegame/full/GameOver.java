@@ -24,7 +24,7 @@ public class GameOver extends Activity {
   private TextView yourScore, highScore;
   private DataBaseHelper myDbHelper;
   private TextView highscrBanner;
-  private Button ButtonPlay, ButtonCompareScores;
+  private Button ButtonPlay;
   private MediaPlayer mp;
   private int played;
 
@@ -57,25 +57,6 @@ public class GameOver extends Activity {
       throw sqle;
     }
 
-    this.ButtonCompareScores = (Button) this.findViewById(R.id.button2);
-    if (isOnline()) {
-      ButtonCompareScores.setVisibility(View.VISIBLE);
-      String FB_ID = myDbHelper.getFBID();
-      if (FB_ID.equals("0")) {
-      } else {
-        String FName = myDbHelper.getFname();
-        String LName = myDbHelper.getL_name();
-        int serverScore = Integer.parseInt(myDbHelper.getServerScore());
-        int highScr = Integer.parseInt(myDbHelper.getHighScore());
-        if (highScr > serverScore) {
-          //ConnectToServer.uploadScore(this, FB_ID, Integer.toString(highScr), FName, LName);
-          myDbHelper.setServerScore(Integer.toString(highScr));
-        }
-      }
-    } else {
-      ButtonCompareScores.setVisibility(View.GONE);
-    }
-
     played = Integer.parseInt(myDbHelper.getTimesPlayed());
 
     if (Integer.parseInt(score) > Integer.parseInt(myDbHelper.getHighScore())) {
@@ -84,34 +65,6 @@ public class GameOver extends Activity {
     }
     String highscore = myDbHelper.getHighScore();
     highScore.setText(highscore);
-
-    this.ButtonCompareScores.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if (view == findViewById(R.id.button2)) {
-          try {
-
-            mp = MediaPlayer.create(GameOver.this, R.raw.bub_pop);
-            if (myDbHelper.getisSound().equals("1")) {
-              mp.setVolume(0, 1);
-            } else {
-              mp.setVolume(0, 0);
-            }
-            mp.setOnCompletionListener(new OnCompletionListener() {
-
-              @Override
-              public void onCompletion(MediaPlayer mp) {
-                // TODO Auto-generated method stub
-                mp.release();
-              }
-
-            });
-            mp.start();
-          } catch (Exception e) {
-          }
-        }
-      }
-    });
 
     this.ButtonPlay = (Button) this.findViewById(R.id.button1);
     this.ButtonPlay.setOnClickListener(new View.OnClickListener() {
@@ -165,12 +118,6 @@ public class GameOver extends Activity {
 
     } catch (SQLException sqle) {
       throw sqle;
-    }
-
-    if (isOnline()) {
-      ButtonCompareScores.setVisibility(View.VISIBLE);
-    } else {
-      ButtonCompareScores.setVisibility(View.GONE);
     }
     super.onResume();
   }
