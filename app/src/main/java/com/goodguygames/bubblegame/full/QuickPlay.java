@@ -20,6 +20,7 @@ import com.goodguygames.bubblegame.util.DataBaseHelper;
 import java.io.IOException;
 
 public class QuickPlay extends Activity {
+
   private TextView scoreTxt;
   private TextView highscoreTxt;
   private DataBaseHelper myDbHelper;

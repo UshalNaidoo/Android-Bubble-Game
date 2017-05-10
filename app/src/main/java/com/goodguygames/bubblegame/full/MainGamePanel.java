@@ -134,20 +134,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
             bomb1 = new GoodBubble(speedCount, space1,
-                             screenHeight + 50);
+                                   screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
             heart1 = new Heart(speedCount, space1, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
               bubble2_1 = new GoodBubble(
-                                   speedCount + 2, space1, screenHeight + 50);
+                  speedCount + 2, space1, screenHeight + 50);
             } else if ((perc1 > 9) && (perc1 < 12)) {
               bubble5_1 = new GoodBubble(
-                                   speedCount + 4, space1, screenHeight + 50);
+                  speedCount + 4, space1, screenHeight + 50);
             } else {
               bubble1 = new GoodBubble(speedCount, space1,
-                                 screenHeight + 50);
+                                       screenHeight + 50);
             }
           }
         }
@@ -166,7 +166,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
             bomb2 = new GoodBubble(speedCount, space2,
-                             screenHeight + 50);
+                                   screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
             heart2 = new Heart(speedCount, space2, 0);
           } else {
@@ -177,7 +177,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
               bubble5_2 = new GoodBubble(speedCount + 4, space2, screenHeight + 50);
             } else {
               bubble2 = new GoodBubble(speedCount, space2,
-                                 screenHeight + 50);
+                                       screenHeight + 50);
             }
           }
         }
@@ -196,7 +196,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
             bomb3 = new GoodBubble(speedCount, space3,
-                             screenHeight + 50);
+                                   screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
             heart3 = new Heart(speedCount, space3, 0);
           } else {
@@ -207,7 +207,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
               bubble5_3 = new GoodBubble(speedCount + 4, space3, screenHeight + 50);
             } else {
               bubble3 = new GoodBubble(speedCount, space3,
-                                 screenHeight + 50);
+                                       screenHeight + 50);
             }
           }
         }
@@ -226,20 +226,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
             bomb4 = new GoodBubble(speedCount, space4,
-                             screenHeight + 50);
+                                   screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
             heart4 = new Heart(speedCount, space4, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
               bubble2_4 = new GoodBubble(
-                                   speedCount + 2, space4, screenHeight + 50);
+                  speedCount + 2, space4, screenHeight + 50);
             } else if ((perc1 > 9) && (perc1 < 12)) {
               bubble5_4 = new GoodBubble(
-                                   speedCount + 4, space4, screenHeight + 50);
+                  speedCount + 4, space4, screenHeight + 50);
             } else {
               bubble4 = new GoodBubble(speedCount, space4,
-                                 screenHeight + 50);
+                                       screenHeight + 50);
             }
           }
         }

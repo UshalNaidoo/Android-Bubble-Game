@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 public abstract class Bubble {
+
   private Bitmap bitmap;        // the actual bitmap
   private int x;                        // the X coordinate
   private int y;                        // the Y coordinate

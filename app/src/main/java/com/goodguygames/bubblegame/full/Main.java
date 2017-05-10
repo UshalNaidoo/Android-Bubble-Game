@@ -72,7 +72,6 @@ public class Main extends Activity {
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
           try {
-
             mp = MediaPlayer.create(Main.this, R.raw.bub_pop);
             if (myDbHelper.getisSound().equals("1")) {
               mp.setVolume(0, 1);
@@ -83,7 +82,6 @@ public class Main extends Activity {
 
               @Override
               public void onCompletion(MediaPlayer mp) {
-                // TODO Auto-generated method stub
                 mp.release();
               }
 

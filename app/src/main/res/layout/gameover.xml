@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bub_background"
-    android:orientation="vertical" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bub_background"
+                android:orientation="vertical" >
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,10 +22,10 @@
             android:text="Game Over"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#1D4088"
-            android:textSize="22dp" />
+            android:textSize="22sp" />
     </RelativeLayout>
 
-    
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -34,10 +34,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="109dp"
         android:text="Your Score"
-         android:textColor="#0f988a"
-         android:textSize="22dp"
+        android:textColor="#0f988a"
+        android:textSize="22sp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -47,10 +47,10 @@
         android:layout_marginTop="210dp"
         android:text="High Score"
         android:textSize="22dp"
-         android:textColor="#0f988a"
+        android:textColor="#0f988a"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
-        <TextView
+
+    <TextView
         android:id="@+id/highscore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,44 +58,44 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
         android:text="0"
-         android:textColor="#1D4088"
-         android:textSize="25dp"
+        android:textColor="#1D4088"
+        android:textSize="25dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:id="@+id/HighScoreTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/barlayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp"
-            android:focusable="false"
-            android:text="HIGH SCORE!!"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#f75625"
-            android:textSize="22dp" />
-            <TextView
-                android:id="@+id/yourscore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/textView2"
-                android:layout_marginTop="22dp"
-                android:text="0"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#1D4088"
-                android:textSize="25dp" />
+    <TextView
+        android:id="@+id/HighScoreTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barlayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:focusable="false"
+        android:text="HIGH SCORE!!"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#f75625"
+        android:textSize="22dp" />
+    <TextView
+        android:id="@+id/yourscore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="22dp"
+        android:text="0"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1D4088"
+        android:textSize="25dp" />
 
     <Button
-                android:id="@+id/button1"
-                android:layout_width="130dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/highscore"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/buttons_background"
-                android:text="Play Again"
-                android:textColor="@drawable/button_color"
-                android:textSize="20dp" />
+        android:id="@+id/button1"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/highscore"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/buttons_background"
+        android:text="Play Again"
+        android:textColor="@drawable/button_color"
+        android:textSize="20dp" />
 
 </RelativeLayout>

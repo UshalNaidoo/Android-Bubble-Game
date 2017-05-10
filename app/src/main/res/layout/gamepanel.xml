@@ -1,114 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:id="@+id/linearLayout"
-   >
-     <com.goodguygames.bubblegame.full.MainGamePanel android:id="@+id/gamePan" android:layout_width="fill_parent" android:layout_height="fill_parent"/> 
-   
-     <RelativeLayout 
-         android:id="@+id/linearLayout1" 
-         android:layout_width="wrap_content" 
-         android:background="@drawable/buttons_background"
-         android:layout_height="wrap_content">
-    
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"
+								android:id="@+id/linearLayout"
+>
+	<com.goodguygames.bubblegame.full.MainGamePanel android:id="@+id/gamePan" android:layout_width="fill_parent" android:layout_height="fill_parent"/>
 
-	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_toRightOf="@+id/linearLayout1"
-	        android:text="Score :"
-	        android:textColor="#1D4088"
-	        android:padding="3dp"
-	        android:textAppearance="?android:attr/textAppearanceSmall"
-	        android:textSize="22dp" />
-    
-	
-     <TextView
-         android:id="@+id/score"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentTop="true"
-         android:layout_toRightOf="@+id/textView1"
-         android:text="0"
-         android:textColor="#1D4088"
-	     android:padding="3dp"
-         android:textAppearance="?android:attr/textAppearanceSmall" 
-         android:textSize="22dp"/>
+	<RelativeLayout
+			android:id="@+id/linearLayout1"
+			android:layout_width="wrap_content"
+			android:background="@drawable/buttons_background"
+			android:layout_height="wrap_content">
 
-     
-          <TextView
-         android:id="@+id/textView2"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/textView1"
-         android:text="High Score :"
-         android:textColor="#1D4088"
-	     android:padding="3dp"
-         android:textAppearance="?android:attr/textAppearanceSmall" 
-         android:textSize="15dp"/>
-          
-     <TextView
-         android:id="@+id/highscore"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_below="@+id/textView1"
-         android:layout_toRightOf="@+id/textView2"
-         android:text="0"
-         android:textColor="#1D4088"
-	     android:padding="3dp"
-         android:textAppearance="?android:attr/textAppearanceSmall"
-         android:textSize="15dp" />
+		<TextView
+				android:id="@+id/textView1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:text="Score :"
+				android:textColor="#1D4088"
+				android:padding="3dp"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:textSize="22dp" />
 
-     <ProgressBar
-         android:id="@+id/lifebar"
-         style="?android:attr/progressBarStyleHorizontal"
-         android:layout_width="100dp"
-         android:layout_height="10dp"
-         android:layout_alignParentRight="true"
-         android:layout_alignParentTop="true"
-         android:layout_marginTop="7dp"
-          android:layout_marginRight="2dp"
-         android:paddingLeft="-2dp"
-         android:paddingRight="-2dp" />
 
-     <ImageView
-         android:id="@+id/imageView1"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignParentTop="true"
-         android:layout_toLeftOf="@+id/lifebar"
-         android:src="@drawable/heart" />
+		<TextView
+				android:id="@+id/score"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_toRightOf="@+id/textView1"
+				android:text="0"
+				android:textColor="#1D4088"
+				android:padding="3dp"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:textSize="22sp"/>
 
-     <ImageView
-         android:id="@+id/ImageView01"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignRight="@+id/lifebar"
-         android:layout_below="@+id/score"
-         android:src="@drawable/pause" />
 
-     <ImageButton
-         android:id="@+id/imageView2"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_alignBottom="@+id/ImageView01"
-         android:layout_toLeftOf="@+id/ImageView01"
-         android:background="@null"
-         android:src="@drawable/button_mute_small" />
+		<TextView
+				android:id="@+id/textView2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_below="@+id/textView1"
+				android:text="High Score :"
+				android:textColor="#1D4088"
+				android:padding="3dp"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:textSize="15sp"/>
 
-</RelativeLayout>
-
-     <LinearLayout
-          android:id="@+id/mainLayout"
-          android:layout_width="320dp"
-          android:layout_height="50dp"
-          android:layout_alignParentBottom="true"
-          android:layout_centerHorizontal="true"
-          android:orientation="vertical" >
-      </LinearLayout>
-     
+		<TextView
+				android:id="@+id/highscore"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/textView1"
+				android:layout_toRightOf="@+id/textView2"
+				android:text="0"
+				android:textColor="#1D4088"
+				android:padding="3dp"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:textSize="15sp" />
+
+		<ProgressBar
+				android:id="@+id/lifebar"
+				style="?android:attr/progressBarStyleHorizontal"
+				android:layout_width="100dp"
+				android:layout_height="10dp"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentTop="true"
+				android:layout_marginTop="7dp"
+				android:layout_marginRight="2dp"
+				android:paddingLeft="-2dp"
+				android:paddingRight="-2dp" />
+
+		<ImageView
+				android:id="@+id/imageView1"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_toLeftOf="@+id/lifebar"
+				android:src="@drawable/heart" />
+
+		<ImageView
+				android:id="@+id/ImageView01"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignRight="@+id/lifebar"
+				android:layout_below="@+id/score"
+				android:src="@drawable/pause" />
+
+		<ImageButton
+				android:id="@+id/imageView2"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignBottom="@+id/ImageView01"
+				android:layout_toLeftOf="@+id/ImageView01"
+				android:background="@null"
+				android:src="@drawable/button_mute_small" />
+
+	</RelativeLayout>
+
+	<LinearLayout
+			android:id="@+id/mainLayout"
+			android:layout_width="320dp"
+			android:layout_height="50dp"
+			android:layout_alignParentBottom="true"
+			android:layout_centerHorizontal="true"
+			android:orientation="vertical" >
+	</LinearLayout>
+
 </RelativeLayout>

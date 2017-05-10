@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/pic1"
-    android:orientation="vertical" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/pic1"
+                android:orientation="vertical" >
 
-    
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/barlayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttons_background"
-        android:focusable="false" >
-     <TextView
-            android:id="@+id/positionTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:focusable="false"
-            android:text="Paused"
-            android:textSize="24dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#1D4088" />
-     </RelativeLayout>
-    
-    <ImageView
-        android:id="@+id/imageView1"
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:id="@+id/barlayout"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@drawable/buttons_background"
+                  android:focusable="false" >
+    <TextView
+        android:id="@+id/positionTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/play" />
+        android:layout_centerInParent="true"
+        android:focusable="false"
+        android:text="Paused"
+        android:textSize="24dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#1D4088" />
+  </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/muteUnmute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/barlayout"
-        android:layout_marginTop="10dp"
-        android:background="@null"
-        android:src="@drawable/button_unmute" />
+  <ImageView
+      android:id="@+id/imageView1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_centerVertical="true"
+      android:src="@drawable/play" />
 
-    <Button
-        android:id="@+id/exitButton"
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/buttons_background"
-        android:text="Exit"
-        android:textColor="@drawable/button_color"
-        android:textSize="20dp" />
+  <ImageButton
+      android:id="@+id/muteUnmute"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@+id/barlayout"
+      android:layout_marginTop="10dp"
+      android:background="@null"
+      android:src="@drawable/button_unmute" />
+
+  <Button
+      android:id="@+id/exitButton"
+      android:layout_width="130dp"
+      android:layout_height="35dp"
+      android:layout_alignParentBottom="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginBottom="10dp"
+      android:background="@drawable/buttons_background"
+      android:text="Exit"
+      android:textColor="@drawable/button_color"
+      android:textSize="20dp" />
 
 </RelativeLayout>
