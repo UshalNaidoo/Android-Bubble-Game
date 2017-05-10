@@ -40,6 +40,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   private int modCounter = 1;
   private int modCounter1 = 1;
   private int percheart = 1;
+  private static Context context;
 
   public MainGamePanel(Context context) {
     super(context);
@@ -69,6 +70,8 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
    * Split the screen into a grid of 5 columns.
    */
   private void setUpScene() {
+    context = this.getContext();
+
     DisplayMetrics metrics = new DisplayMetrics();
     ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
     screenHeight = metrics.heightPixels;
@@ -80,11 +83,15 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     space4 = space3 + spacer;
     space5 = space4 + spacer;
 
-    bubble1 = new GoodBubble(this.getContext(), speedCount, space1, screenHeight + 500);
-    bubble2 = new GoodBubble(this.getContext(), speedCount, space2, screenHeight + 500);
-    bubble3 = new GoodBubble(this.getContext(), speedCount, space3, screenHeight + 500);
-    bubble4 = new GoodBubble(this.getContext(), speedCount, space4, screenHeight + 500);
-    bubble5 = new GoodBubble(this.getContext(), speedCount, space5, screenHeight + 500);
+    bubble1 = new GoodBubble(speedCount, space1, screenHeight + 500);
+    bubble2 = new GoodBubble(speedCount, space2, screenHeight + 500);
+    bubble3 = new GoodBubble(speedCount, space3, screenHeight + 500);
+    bubble4 = new GoodBubble(speedCount, space4, screenHeight + 500);
+    bubble5 = new GoodBubble(speedCount, space5, screenHeight + 500);
+  }
+
+  public static Context getGameContext() {
+    return context;
   }
 
   @Override
@@ -126,20 +133,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc = ran.nextInt(100);
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
-            bomb1 = new GoodBubble(this.getContext(), speedCount, space1,
+            bomb1 = new GoodBubble(speedCount, space1,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart1 = new Heart(this.getContext(), speedCount, space1, 0);
+            heart1 = new Heart(speedCount, space1, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
-              bubble2_1 = new GoodBubble(this.getContext(),
+              bubble2_1 = new GoodBubble(
                                    speedCount + 2, space1, screenHeight + 50);
             } else if ((perc1 > 9) && (perc1 < 12)) {
-              bubble5_1 = new GoodBubble(this.getContext(),
+              bubble5_1 = new GoodBubble(
                                    speedCount + 4, space1, screenHeight + 50);
             } else {
-              bubble1 = new GoodBubble(this.getContext(), speedCount, space1,
+              bubble1 = new GoodBubble(speedCount, space1,
                                  screenHeight + 50);
             }
           }
@@ -158,20 +165,18 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc = ran.nextInt(100);
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
-            bomb2 = new GoodBubble(this.getContext(), speedCount, space2,
+            bomb2 = new GoodBubble(speedCount, space2,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart2 = new Heart(this.getContext(), speedCount, space2, 0);
+            heart2 = new Heart(speedCount, space2, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
-              bubble2_2 = new GoodBubble(this.getContext(),
-                                   speedCount + 2, space2, screenHeight + 50);
+              bubble2_2 = new GoodBubble(speedCount + 2, space2, screenHeight + 50);
             } else if ((perc1 > 9) && (perc1 < 12)) {
-              bubble5_2 = new GoodBubble(this.getContext(),
-                                   speedCount + 4, space2, screenHeight + 50);
+              bubble5_2 = new GoodBubble(speedCount + 4, space2, screenHeight + 50);
             } else {
-              bubble2 = new GoodBubble(this.getContext(), speedCount, space2,
+              bubble2 = new GoodBubble(speedCount, space2,
                                  screenHeight + 50);
             }
           }
@@ -190,20 +195,18 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc = ran.nextInt(100);
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
-            bomb3 = new GoodBubble(this.getContext(), speedCount, space3,
+            bomb3 = new GoodBubble(speedCount, space3,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart3 = new Heart(this.getContext(), speedCount, space3, 0);
+            heart3 = new Heart(speedCount, space3, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
-              bubble2_3 = new GoodBubble(this.getContext(),
-                                   speedCount + 2, space3, screenHeight + 50);
+              bubble2_3 = new GoodBubble(speedCount + 2, space3, screenHeight + 50);
             } else if ((perc1 > 9) && (perc1 < 12)) {
-              bubble5_3 = new GoodBubble(this.getContext(),
-                                   speedCount + 4, space3, screenHeight + 50);
+              bubble5_3 = new GoodBubble(speedCount + 4, space3, screenHeight + 50);
             } else {
-              bubble3 = new GoodBubble(this.getContext(), speedCount, space3,
+              bubble3 = new GoodBubble(speedCount, space3,
                                  screenHeight + 50);
             }
           }
@@ -222,20 +225,20 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           int perc = ran.nextInt(100);
           int perc2 = ran.nextInt(100 + percheart);
           if (perc < 9) {
-            bomb4 = new GoodBubble(this.getContext(), speedCount, space4,
+            bomb4 = new GoodBubble(speedCount, space4,
                              screenHeight + 50);
           } else if ((perc2 > 9) && (perc2 < 12)) {
-            heart4 = new Heart(this.getContext(), speedCount, space4, 0);
+            heart4 = new Heart(speedCount, space4, 0);
           } else {
             int perc1 = ran.nextInt(100);
             if (perc1 < 5) {
-              bubble2_4 = new GoodBubble(this.getContext(),
+              bubble2_4 = new GoodBubble(
                                    speedCount + 2, space4, screenHeight + 50);
             } else if ((perc1 > 9) && (perc1 < 12)) {
-              bubble5_4 = new GoodBubble(this.getContext(),
+              bubble5_4 = new GoodBubble(
                                    speedCount + 4, space4, screenHeight + 50);
             } else {
-              bubble4 = new GoodBubble(this.getContext(), speedCount, space4,
+              bubble4 = new GoodBubble(speedCount, space4,
                                  screenHeight + 50);
             }
           }
@@ -515,7 +518,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           heart1.setTouched(false);
           heart1 = null;
 
-          bubble1 = new GoodBubble(this.getContext(), speedCount, space1, screenHeight);
+          bubble1 = new GoodBubble(speedCount, space1, screenHeight);
 
         }
       }
@@ -533,7 +536,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           heart2.setTouched(false);
           heart2 = null;
 
-          bubble2 = new GoodBubble(this.getContext(), speedCount, space2, screenHeight);
+          bubble2 = new GoodBubble(speedCount, space2, screenHeight);
 
         }
       }
@@ -551,7 +554,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           heart3.setTouched(false);
           heart3 = null;
 
-          bubble3 = new GoodBubble(this.getContext(), speedCount, space3, screenHeight);
+          bubble3 = new GoodBubble(speedCount, space3, screenHeight);
 
         }
       }
@@ -569,7 +572,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           heart4.setTouched(false);
           heart4 = null;
 
-          bubble4 = new GoodBubble(this.getContext(), speedCount, space4, screenHeight);
+          bubble4 = new GoodBubble(speedCount, space4, screenHeight);
 
         }
       }
@@ -587,7 +590,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
           heart5.setTouched(false);
           heart5 = null;
 
-          bubble5 = new GoodBubble(this.getContext(), speedCount, space5, screenHeight);
+          bubble5 = new GoodBubble(speedCount, space5, screenHeight);
 
         }
       }
@@ -810,7 +813,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (droid == bubble5_1) {
           bubble5_1 = null;
         }
-        bubble1 = new GoodBubble(this.getContext(), speedCount, space1, screenHeight);
+        bubble1 = new GoodBubble(speedCount, space1, screenHeight);
       }
       if ((droid == bubble2) || (droid == bubble2_2) || (droid == bubble5_2)) {
         ((QuickPlay) getContext()).bonkSound();
@@ -821,7 +824,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (droid == bubble5_2) {
           bubble5_2 = null;
         }
-        bubble2 = new GoodBubble(this.getContext(), speedCount, space2, screenHeight);
+        bubble2 = new GoodBubble(speedCount, space2, screenHeight);
       }
       if ((droid == bubble3) || (droid == bubble2_3) || (droid == bubble5_3)) {
         ((QuickPlay) getContext()).bonkSound();
@@ -832,7 +835,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (droid == bubble5_3) {
           bubble5_3 = null;
         }
-        bubble3 = new GoodBubble(this.getContext(), speedCount, space3, screenHeight);
+        bubble3 = new GoodBubble(speedCount, space3, screenHeight);
       }
       if ((droid == bubble4) || (droid == bubble2_4) || (droid == bubble5_4)) {
         ((QuickPlay) getContext()).bonkSound();
@@ -843,7 +846,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (droid == bubble5_4) {
           bubble5_4 = null;
         }
-        bubble4 = new GoodBubble(this.getContext(), speedCount, space4, screenHeight);
+        bubble4 = new GoodBubble(speedCount, space4, screenHeight);
       }
       if ((droid == bubble5) || (droid == bubble2_5) || (droid == bubble5_5)) {
         ((QuickPlay) getContext()).bonkSound();
@@ -854,29 +857,29 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
         if (droid == bubble5_5) {
           bubble5_5 = null;
         }
-        bubble5 = new GoodBubble(this.getContext(), speedCount, space5, screenHeight);
+        bubble5 = new GoodBubble(speedCount, space5, screenHeight);
       }
 
       //Bombs
       if (droid == bomb1) {
         bomb1 = null;
-        bubble1 = new GoodBubble(this.getContext(), speedCount, space1, screenHeight);
+        bubble1 = new GoodBubble(speedCount, space1, screenHeight);
       }
       if (droid == bomb2) {
         bomb2 = null;
-        bubble2 = new GoodBubble(this.getContext(), speedCount, space2, screenHeight);
+        bubble2 = new GoodBubble(speedCount, space2, screenHeight);
       }
       if (droid == bomb3) {
         bomb3 = null;
-        bubble3 = new GoodBubble(this.getContext(), speedCount, space3, screenHeight);
+        bubble3 = new GoodBubble(speedCount, space3, screenHeight);
       }
       if (droid == bomb4) {
         bomb4 = null;
-        bubble4 = new GoodBubble(this.getContext(), speedCount, space4, screenHeight);
+        bubble4 = new GoodBubble(speedCount, space4, screenHeight);
       }
       if (droid == bomb5) {
         bomb5 = null;
-        bubble5 = new GoodBubble(this.getContext(), speedCount, space5, screenHeight);
+        bubble5 = new GoodBubble(speedCount, space5, screenHeight);
       }
       if (lives < 1) {
         Context context = getContext(); // from MySurfaceView/Activity
@@ -898,23 +901,23 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
       //Bombs
       if (droid == heart1) {
         heart1 = null;
-        bubble1 = new GoodBubble(this.getContext(), speedCount, space1, screenHeight);
+        bubble1 = new GoodBubble(speedCount, space1, screenHeight);
       }
       if (droid == heart2) {
         heart2 = null;
-        bubble2 = new GoodBubble(this.getContext(), speedCount, space2, screenHeight);
+        bubble2 = new GoodBubble(speedCount, space2, screenHeight);
       }
       if (droid == heart3) {
         heart3 = null;
-        bubble3 = new GoodBubble(this.getContext(), speedCount, space3, screenHeight);
+        bubble3 = new GoodBubble(speedCount, space3, screenHeight);
       }
       if (droid == heart4) {
         heart4 = null;
-        bubble4 = new GoodBubble(this.getContext(), speedCount, space4, screenHeight);
+        bubble4 = new GoodBubble(speedCount, space4, screenHeight);
       }
       if (droid == heart5) {
         heart5 = null;
-        bubble5 = new GoodBubble(this.getContext(), speedCount, space5, screenHeight);
+        bubble5 = new GoodBubble(speedCount, space5, screenHeight);
       }
     }
   }
