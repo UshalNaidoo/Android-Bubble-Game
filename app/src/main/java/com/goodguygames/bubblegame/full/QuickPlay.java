@@ -20,13 +20,10 @@ import com.goodguygames.bubblegame.util.DataBaseHelper;
 import java.io.IOException;
 
 public class QuickPlay extends Activity {
-
-  private TextView scoreTxt;
-  private TextView highscoreTxt;
-  private DataBaseHelper myDbHelper;
+  private static TextView scoreTxt;
+  private static DataBaseHelper myDbHelper;
   private MediaPlayer mp, mp1, mp2;
   private ProgressBar LivesLevel;
-  private ImageView pause;
   private ImageButton mutesound;
   private boolean isMute = false;
 
@@ -39,7 +36,7 @@ public class QuickPlay extends Activity {
     this.mutesound = (ImageButton) this.findViewById(R.id.imageView2);
 
     scoreTxt = (TextView) findViewById(R.id.score);
-    highscoreTxt = (TextView) findViewById(R.id.highscore);
+    TextView highscoreTxt = (TextView) findViewById(R.id.highscore);
 
     myDbHelper = new DataBaseHelper(this);
     try {
@@ -97,8 +94,8 @@ public class QuickPlay extends Activity {
       }
     });
 
-    this.pause = (ImageView) this.findViewById(R.id.ImageView01);
-    this.pause.setOnClickListener(new View.OnClickListener() {
+    ImageView pause = (ImageView) this.findViewById(R.id.ImageView01);
+    pause.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.ImageView01)) {
@@ -138,7 +135,6 @@ public class QuickPlay extends Activity {
 
           @Override
           public void onCompletion(MediaPlayer mp) {
-            // TODO Auto-generated method stub
             mp.release();
           }
 
@@ -163,7 +159,6 @@ public class QuickPlay extends Activity {
 
           @Override
           public void onCompletion(MediaPlayer mp) {
-            // TODO Auto-generated method stub
             mp1.release();
           }
 
@@ -177,7 +172,7 @@ public class QuickPlay extends Activity {
   public void popSound() {
     QuickPlay.this.runOnUiThread(new Runnable() {
       public void run() {
-        mp2 = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
+        final MediaPlayer mp2 = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
         if (myDbHelper.getisSound().equals("1")) {
           mp2.setVolume(0, 1);
         } else {
@@ -187,7 +182,6 @@ public class QuickPlay extends Activity {
 
           @Override
           public void onCompletion(MediaPlayer mp) {
-            // TODO Auto-generated method stub
             mp2.release();
           }
 
@@ -202,7 +196,6 @@ public class QuickPlay extends Activity {
     QuickPlay.this.runOnUiThread(new Runnable() {
       public void run() {
         scoreTxt.setText(txt);
-
       }
     });
   }
@@ -240,8 +233,8 @@ public class QuickPlay extends Activity {
 
       });
       mp.start();
-      Intent scorepage = new Intent(QuickPlay.this, Pause.class);
-      startActivityForResult(scorepage, 1);
+      Intent scorePage = new Intent(QuickPlay.this, Pause.class);
+      startActivityForResult(scorePage, 1);
       return true;
     }
 

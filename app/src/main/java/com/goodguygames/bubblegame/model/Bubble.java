@@ -8,13 +8,19 @@ public abstract class Bubble {
   private Bitmap bitmap;        // the actual bitmap
   private int x;                        // the X coordinate
   private int y;                        // the Y coordinate
-  private boolean touched;        // if droid is touched/picked up
   private Velocity velocity;        // the velocity with its directions
+  private int score;
 
 
   public Bubble(int x, int y) {
-    this.x = x;
-    this.y = y;
+    this.setX(x);
+    this.setY(y);
+  }
+
+  public Bubble(int x, int y, int score) {
+    this.setX(x);
+    this.setY(y);
+    this.setScore(score);
   }
 
   public Velocity getVelocity() {
@@ -49,12 +55,19 @@ public abstract class Bubble {
     this.y = y;
   }
 
-  public boolean isTouched() {
-    return touched;
+  public int getScore() {
+    return score;
   }
 
-  public void setTouched(boolean touched) {
-    this.touched = touched;
+  public void setScore(int score) {
+    this.score = score;
+  }
+
+  /**
+   * The bubble was touched by the user
+   */
+  public void setTouched() {
+
   }
 
   /**
@@ -68,12 +81,8 @@ public abstract class Bubble {
     if (eventY >= (y - bitmap.getHeight() / 2) && (eventY <= (y + bitmap.getHeight() / 2) + 30)) {
       if (eventX >= (x - bitmap.getWidth() / 2) && (eventX <= (x + bitmap.getWidth() / 2))) {
         // droid touched
-        setTouched(true);
-      } else {
-        setTouched(false);
+        setTouched();
       }
-    } else {
-      setTouched(false);
     }
   }
 
@@ -81,9 +90,7 @@ public abstract class Bubble {
    * Method which updates the droid's internal state every tick
    */
   public void update() {
-    if (!touched) {
-      y += (velocity.getYv() * velocity.getyDirection());
-    }
+    y += (velocity.getYv() * velocity.getyDirection());
   }
 
   public void draw(Canvas canvas) {

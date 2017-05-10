@@ -4,6 +4,7 @@
 package com.goodguygames.bubblegame.model;
 
 import android.graphics.BitmapFactory;
+
 import com.goodguygames.bubblegame.full.MainGamePanel;
 import com.goodguygames.bubblegame.full.R;
 
@@ -15,4 +16,12 @@ public class GoodBubble extends Bubble {
     this.setVelocity(new Velocity(speed, Direction.UP));
   }
 
+  @Override
+  public void setTouched() {
+//    QuickPlay.popSound();
+//    QuickPlay.setScore(Integer.toString(MainGamePanel.score++));
+    setX(-100);
+    setY(-100);
+    setVelocity(new Velocity(0, Direction.UP));
+  }
 }

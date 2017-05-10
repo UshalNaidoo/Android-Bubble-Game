@@ -4,6 +4,7 @@
 package com.goodguygames.bubblegame.model;
 
 import android.graphics.BitmapFactory;
+
 import com.goodguygames.bubblegame.full.MainGamePanel;
 import com.goodguygames.bubblegame.full.R;
 
@@ -15,4 +16,15 @@ public class Heart extends Bubble {
     this.setVelocity(new Velocity(speed, Direction.UP));
   }
 
+  @Override
+  public void setTouched() {
+//    ((QuickPlay.getContext()).chimeSound();
+//    lives++;
+//    if (lives > maxlives) {
+//      lives = maxlives;
+//    }
+//    ((QuickPlay) getContext()).setLives(lives);
+//    heart1 = null;
+
+  }
 }
