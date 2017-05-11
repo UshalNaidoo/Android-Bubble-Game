@@ -41,12 +41,6 @@ public class Productions extends Activity {
     mp1.setLooping(true);
     mp1.start();
 
-    if (myDbHelper.getisSound().equals("1")) {
-      mp1.setVolume(0, 1);
-    } else {
-      mp1.setVolume(0, 0);
-    }
-
     final ImageView splashImageView = (ImageView) findViewById(R.id.SplashImageView);
     splashImageView.setBackgroundResource(R.drawable.productiongif);
     final AnimationDrawable frameAnimation = (AnimationDrawable) splashImageView.getBackground();

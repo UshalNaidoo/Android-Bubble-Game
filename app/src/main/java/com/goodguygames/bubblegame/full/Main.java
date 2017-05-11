@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.goodguygames.bubblegame.util.DataBaseHelper;
@@ -24,8 +23,6 @@ public class Main extends Activity {
   private DataBaseHelper dataBaseHelper;
   private int played;
   private TextView highScoreTextView;
-  private ImageButton muteSound;
-  private boolean isMute = false;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +30,6 @@ public class Main extends Activity {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.main);
-    this.muteSound = (ImageButton) this.findViewById(R.id.muteUnmute);
     dataBaseHelper = new DataBaseHelper(this);
     try {
       dataBaseHelper.createDataBase();
@@ -48,32 +44,17 @@ public class Main extends Activity {
     highScoreTextView = (TextView) findViewById(R.id.textView1);
     highScoreTextView.setText(getResources().getString(R.string.high_score) + dataBaseHelper.getHighScore());
 
-    if (dataBaseHelper.getisSound().equals("1")) {
-      isMute = false;
-      muteSound.setImageResource(R.drawable.button_unmute);
-    } else {
-      isMute = true;
-      muteSound.setImageResource(R.drawable.button_mute);
-    }
-
     Button buttonPlay = (Button) this.findViewById(R.id.button1);
     buttonPlay.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
           mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
-          if (dataBaseHelper.getisSound().equals("1")) {
-            mediaPlayer.setVolume(0, 1);
-          } else {
-            mediaPlayer.setVolume(0, 0);
-          }
           mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-
             @Override
             public void onCompletion(MediaPlayer mp) {
               mp.release();
             }
-
           });
           mediaPlayer.start();
 
@@ -84,31 +65,6 @@ public class Main extends Activity {
       }
     });
 
-    this.muteSound.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if (view == findViewById(R.id.muteUnmute)) {
-          if (!isMute) {
-            isMute = true;
-            dataBaseHelper.setisSound("0");
-            muteSound.setImageResource(R.drawable.button_mute);
-          } else if (isMute) {
-            isMute = false;
-            mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
-            mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-
-              @Override
-              public void onCompletion(MediaPlayer mp) {
-                mp.release();
-              }
-            });
-            mediaPlayer.start();
-            dataBaseHelper.setisSound("1");
-            muteSound.setImageResource(R.drawable.button_unmute);
-          }
-        }
-      }
-    });
 
   }
 
@@ -132,13 +88,6 @@ public class Main extends Activity {
     highScoreTextView = (TextView) findViewById(R.id.textView1);
     highScoreTextView.setText(getResources().getString(R.string.high_score) + dataBaseHelper.getHighScore());
 
-    if (dataBaseHelper.getisSound().equals("1")) {
-      isMute = false;
-      muteSound.setImageResource(R.drawable.button_unmute);
-    } else {
-      isMute = true;
-      muteSound.setImageResource(R.drawable.button_mute);
-    }
     super.onResume();
   }
 
@@ -162,18 +111,11 @@ public class Main extends Activity {
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
       mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
-      if (dataBaseHelper.getisSound().equals("1")) {
-        mediaPlayer.setVolume(0, 1);
-      } else {
-        mediaPlayer.setVolume(0, 0);
-      }
       mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-
         @Override
         public void onCompletion(MediaPlayer mp) {
           mp.release();
         }
-
       });
       mediaPlayer.start();
       finish();

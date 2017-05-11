@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,10 +22,7 @@ public class QuickPlay extends Activity {
   private static TextView scoreTxt;
   private static DataBaseHelper myDbHelper;
   private MediaPlayer mp;
-
   private static ProgressBar lifeBar;
-  private ImageButton muteSound;
-  private boolean isMute = false;
   private static Context context;
 
   @Override
@@ -36,7 +32,6 @@ public class QuickPlay extends Activity {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.gamepanel);
-    this.muteSound = (ImageButton) this.findViewById(R.id.imageView2);
 
     scoreTxt = (TextView) findViewById(R.id.score);
     TextView highScoreText = (TextView) findViewById(R.id.highscore);
@@ -57,52 +52,12 @@ public class QuickPlay extends Activity {
     lifeBar.setProgress(MainGamePanel.lives);
     MainGamePanel.score = 0;
 
-    if (myDbHelper.getisSound().equals("1")) {
-      isMute = false;
-      muteSound.setImageResource(R.drawable.button_unmute_small);
-    } else {
-      isMute = true;
-      muteSound.setImageResource(R.drawable.button_mute_small);
-    }
-
-    this.muteSound.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if (view == findViewById(R.id.imageView2)) {
-          if (!isMute) {
-            isMute = true;
-            myDbHelper.setisSound("0");
-            muteSound.setImageResource(R.drawable.button_mute_small);
-          } else if (isMute) {
-            isMute = false;
-            mp = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
-            mp.setVolume(0, 1);
-            mp.setOnCompletionListener(new OnCompletionListener() {
-              @Override
-              public void onCompletion(MediaPlayer mp) {
-                mp.release();
-              }
-
-            });
-            mp.start();
-            myDbHelper.setisSound("1");
-            muteSound.setImageResource(R.drawable.button_unmute_small);
-          }
-        }
-      }
-    });
-
     ImageView pause = (ImageView) this.findViewById(R.id.ImageView01);
     pause.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.ImageView01)) {
           mp = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
-          if (myDbHelper.getisSound().equals("1")) {
-            mp.setVolume(0, 1);
-          } else {
-            mp.setVolume(0, 0);
-          }
           mp.setOnCompletionListener(new OnCompletionListener() {
 
             @Override
@@ -112,8 +67,8 @@ public class QuickPlay extends Activity {
 
           });
           mp.start();
-          Intent scorepage = new Intent(QuickPlay.this, Pause.class);
-          startActivityForResult(scorepage, 1);
+          Intent scorePage = new Intent(QuickPlay.this, Pause.class);
+          startActivityForResult(scorePage, 1);
         }
       }
     });
@@ -127,11 +82,6 @@ public class QuickPlay extends Activity {
     ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
         final MediaPlayer mp = MediaPlayer.create(QuickPlay.getAppContext(), R.raw.bonk);
-        if (myDbHelper.getisSound().equals("1")) {
-          mp.setVolume(0, 1);
-        } else {
-          mp.setVolume(0, 0);
-        }
         mp.setOnCompletionListener(new OnCompletionListener() {
 
           @Override
@@ -149,11 +99,6 @@ public class QuickPlay extends Activity {
     ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
         final MediaPlayer mp1 = MediaPlayer.create(QuickPlay.getAppContext(), R.raw.chime);
-        if (myDbHelper.getisSound().equals("1")) {
-          mp1.setVolume(0, 1);
-        } else {
-          mp1.setVolume(0, 0);
-        }
         mp1.setOnCompletionListener(new OnCompletionListener() {
 
           @Override
@@ -171,18 +116,11 @@ public class QuickPlay extends Activity {
     ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
         final MediaPlayer mp2 = MediaPlayer.create(QuickPlay.getAppContext(), R.raw.bub_pop);
-        if (myDbHelper.getisSound().equals("1")) {
-          mp2.setVolume(0, 1);
-        } else {
-          mp2.setVolume(0, 0);
-        }
         mp2.setOnCompletionListener(new OnCompletionListener() {
-
           @Override
           public void onCompletion(MediaPlayer mp) {
             mp2.release();
           }
-
         });
         mp2.start();
 
@@ -224,7 +162,6 @@ public class QuickPlay extends Activity {
       }
       ((Activity)getAppContext()).finish();
     }
-
   }
 
   @Override
@@ -238,11 +175,6 @@ public class QuickPlay extends Activity {
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
       mp = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
-      if (myDbHelper.getisSound().equals("1")) {
-        mp.setVolume(0, 1);
-      } else {
-        mp.setVolume(0, 0);
-      }
       mp.setOnCompletionListener(new OnCompletionListener() {
 
         @Override

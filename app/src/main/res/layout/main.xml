@@ -27,15 +27,4 @@
         android:textSize="20sp"
         android:text="@string/high_score"/>
 
-    <ImageButton
-        android:id="@+id/muteUnmute"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@null"
-        android:src="@drawable/button_unmute"
-        android:contentDescription="@string/toggle_sound"/>
-    
 </RelativeLayout>

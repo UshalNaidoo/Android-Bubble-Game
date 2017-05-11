@@ -42,7 +42,6 @@ public class GameOver extends Activity {
     }
 
     myDbHelper.openDataBase();
-
     played = Integer.parseInt(myDbHelper.getTimesPlayed());
 
     if (Integer.parseInt(score) > Integer.parseInt(myDbHelper.getHighScore())) {
@@ -57,18 +56,11 @@ public class GameOver extends Activity {
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
           mp = MediaPlayer.create(GameOver.this, R.raw.bub_pop);
-          if (myDbHelper.getisSound().equals("1")) {
-            mp.setVolume(0, 1);
-          } else {
-            mp.setVolume(0, 0);
-          }
           mp.setOnCompletionListener(new OnCompletionListener() {
-
             @Override
             public void onCompletion(MediaPlayer mp) {
               mp.release();
             }
-
           });
           mp.start();
 
