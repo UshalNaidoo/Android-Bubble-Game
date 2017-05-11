@@ -17,3 +17,6 @@ Feel free to add [issues](https://github.com/UshalNaidoo/Android-Bubble-Game/iss
 
 Any contributions, large or small, major features, bug fixes, are welcomed and appreciated
 but will be thoroughly reviewed .
+
+
+![screenshot](https://github.com/UshalNaidoo/Android-Bubble-Game/blob/master/Screenshot1.png)
