@@ -5,7 +5,6 @@ package com.goodguygames.bubblegame.full;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -19,6 +18,7 @@ import android.view.SurfaceView;
 import com.goodguygames.bubblegame.model.Bubble;
 import com.goodguygames.bubblegame.model.GoodBubble;
 import com.goodguygames.bubblegame.model.Heart;
+import com.goodguygames.bubblegame.model.PoisonBubble;
 
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -28,6 +28,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   public static MainThread thread;
   private Bubble goodBubble;
   private Bubble heart;
+  private Bubble poisonBubble;
   public static int screenHeight = 0;
   public static int screenWidth = 0;
 
@@ -65,6 +66,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     screenHeight = metrics.heightPixels;
     screenWidth = metrics.widthPixels;
     goodBubble = new GoodBubble();
+    poisonBubble = new PoisonBubble();
     heart = new Heart();
 
   }
@@ -101,6 +103,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
       if (heart != null) {
         heart.handleActionDown((int) event.getX(), (int) event.getY());
       }
+      if(poisonBubble != null) {
+        poisonBubble.handleActionDown((int) event.getX(), (int) event.getY());
+      }
     }
     return true;
   }
@@ -118,6 +123,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     if (heart != null) {
       heart.draw(canvas);
     }
+    if (poisonBubble != null) {
+      poisonBubble.draw(canvas);
+    }
   }
 
   /**
@@ -130,6 +138,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
     if (heart != null) {
       heart.moveBubble();
+    }
+    if (poisonBubble != null) {
+      poisonBubble.moveBubble();
     }
   }
 

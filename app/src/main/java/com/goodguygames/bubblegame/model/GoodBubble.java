@@ -3,13 +3,13 @@
  */
 package com.goodguygames.bubblegame.model;
 
-import java.util.Random;
-
 import android.graphics.BitmapFactory;
 
 import com.goodguygames.bubblegame.full.MainGamePanel;
 import com.goodguygames.bubblegame.full.QuickPlay;
 import com.goodguygames.bubblegame.full.R;
+
+import java.util.Random;
 
 public class GoodBubble extends Bubble {
 

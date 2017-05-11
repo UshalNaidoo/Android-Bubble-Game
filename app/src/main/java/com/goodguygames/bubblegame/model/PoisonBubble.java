@@ -3,6 +3,7 @@
  */
 package com.goodguygames.bubblegame.model;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 
@@ -11,12 +12,21 @@ import com.goodguygames.bubblegame.full.MainGamePanel;
 import com.goodguygames.bubblegame.full.QuickPlay;
 import com.goodguygames.bubblegame.full.R;
 
+import java.util.Random;
+
 public class PoisonBubble extends Bubble {
 
-  public PoisonBubble(int speed, int x, int y) {
-    super(x, y);
+  private Velocity velocity;
+  private Random random;
+
+  public PoisonBubble() {
+    super();
     this.setBitmap(BitmapFactory.decodeResource(QuickPlay.getAppContext().getResources(), R.drawable.skull_bub));
-    this.setVelocity(new Velocity(speed, Direction.UP));
+    velocity = new Velocity(1, Direction.UP);
+    this.setVelocity(velocity);
+    this.setY(MainGamePanel.screenHeight);
+    random = new Random();
+    this.setX(random.nextInt(MainGamePanel.screenWidth));
   }
 
   @Override
@@ -27,7 +37,18 @@ public class PoisonBubble extends Bubble {
     if (MainGamePanel.thread.isAlive()) {
       MainGamePanel.thread.setRunning(false);
     }
-//    MainGamePanel.getGameContext().getApplicationContext().finish();
+    ((Activity)QuickPlay.getAppContext()).finish();
+  }
+
+  @Override
+  public void resetBubblePosition() {
+    //TODO change that velocity direction is an int and not a Direction
+    velocity.setyDirection(velocity.getyDirection() == 1 ? -1 : 1);
+  }
+
+  @Override
+  public void bubbleOutOfView() {
+    resetBubblePosition();
   }
 
 }
