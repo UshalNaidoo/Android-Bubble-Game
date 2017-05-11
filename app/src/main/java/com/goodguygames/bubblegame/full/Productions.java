@@ -20,7 +20,6 @@ public class Productions extends Activity {
   protected int _splashTime = 4000;
 
   private MediaPlayer mp1;
-  private DataBaseHelper myDbHelper;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -29,26 +28,20 @@ public class Productions extends Activity {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.productions);
 
-    myDbHelper = new DataBaseHelper(this);
+    DataBaseHelper myDbHelper = new DataBaseHelper(this);
     try {
       myDbHelper.createDataBase();
     } catch (IOException ioe) {
       throw new Error("Unable to create database");
     }
 
-    try {
-      myDbHelper.openDataBase();
-
-    } catch (SQLException sqle) {
-      throw sqle;
-    }
+    myDbHelper.openDataBase();
 
     mp1 = MediaPlayer.create(this, R.raw.title);
     mp1.setLooping(true);
     mp1.start();
 
     if (myDbHelper.getisSound().equals("1")) {
-
       mp1.setVolume(0, 1);
     } else {
       mp1.setVolume(0, 0);
@@ -64,7 +57,6 @@ public class Productions extends Activity {
         frameAnimation.start();
       }
     });
-
     Thread splashTread = new Thread() {
       @Override
       public void run() {
@@ -82,7 +74,6 @@ public class Productions extends Activity {
           finish();
           mp1.release();
           startActivity(new Intent("com.goodguygames.bubblegame.full.Main"));
-
         }
       }
     };

@@ -4,4 +4,19 @@
     <string name="hello">Hello World, Bubble_GameActivity!</string>
     <string name="app_name">Bubble_Game</string>
 
+    <string name="zero">0</string>
+    <string name="game_over">Game Over</string>
+    <string name="play">Play</string>
+    <string name="lives">Lives</string>
+    <string name="press_to_play">Press to play</string>
+    <string name="press_to_pause">Press to pause</string>
+    <string name="toggle_sound">Press to toggle sound</string>
+    <string name="score">Score: </string>
+    <string name="your_score">Your Score: </string>
+    <string name="high_score">High Score: </string>
+    <string name="retry">Retry</string>
+    <string name="paused">Paused</string>
+    <string name="exit">Exit</string>
+    <string name="high_score_imp">High Score!!!</string>
+
 </resources>

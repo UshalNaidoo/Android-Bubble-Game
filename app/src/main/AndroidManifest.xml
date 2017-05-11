@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.goodguygames.bubblegame.full"
-    android:versionCode="2"
-    android:versionName="2.0" >
-    <uses-sdk android:minSdkVersion="8" />
-    
-      	<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+          package="com.goodguygames.bubblegame.full"
+          android:versionCode="2"
+          android:versionName="2.0">
+  <uses-sdk android:minSdkVersion="8"/>
 
-    <application
-        android:icon="@drawable/ic_launcher"
-        android:label="POP" >
-        <activity android:name="Productions"
-                  android:screenOrientation="portrait"
-                  android:theme="@android:style/Theme.NoTitleBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-         
-       <activity android:name=".Main"
-           android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar">
-            <intent-filter>
-                <action android:name="com.goodguygames.bubblegame.full.Main" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        
-           <activity android:name=".QuickPlay" android:screenOrientation="portrait"  android:theme="@android:style/Theme.NoTitleBar" />    
-   	 		<activity android:name=".GameOver" android:screenOrientation="portrait"  android:theme="@android:style/Theme.NoTitleBar" />   
-   	 		<activity android:name=".ScoreBoardScreen" android:screenOrientation="portrait"  android:theme="@android:style/Theme.NoTitleBar" />    
-		   	 <activity android:name=".Pause" android:screenOrientation="portrait"  android:theme="@android:style/Theme.NoTitleBar" />     
-		     <activity android:name=".Rate" android:screenOrientation="portrait"  android:theme="@android:style/Theme.NoTitleBar" />    
-   	 
-  	
-    </application>
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+  <application
+      android:icon="@drawable/ic_launcher"
+      android:label="POP">
+    <activity android:name="Productions"
+              android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.NoTitleBar">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+
+    <activity android:name=".Main"
+              android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.NoTitleBar">
+      <intent-filter>
+        <action android:name="com.goodguygames.bubblegame.full.Main"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+    </activity>
+
+    <activity android:name=".QuickPlay" android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.NoTitleBar"/>
+    <activity android:name=".GameOver" android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.NoTitleBar"/>
+    <activity android:name=".Pause" android:screenOrientation="portrait"
+              android:theme="@android:style/Theme.NoTitleBar"/>
+
+  </application>
 
 </manifest>

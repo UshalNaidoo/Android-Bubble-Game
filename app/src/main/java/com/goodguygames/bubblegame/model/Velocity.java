@@ -1,25 +1,24 @@
 /**
  *
  */
-package com.goodguygames.bubblegame.components;
+package com.goodguygames.bubblegame.model;
 
 import java.util.Random;
 
-public class Speed {
+public class Velocity {
 
-  public static final int DIRECTION_UP = -1;
-  private float yv = 1;        // velocity value on the Y axis
+  private float yv = 1;
   private float xv = 1;
+  private int yDirection;
 
-  private int yDirection = DIRECTION_UP;
-
-  public Speed(int i) {
+  public Velocity(int speed, Direction direction) {
     Random ran = new Random();
-    int spd = ran.nextInt(10) + 3 + i;
+    int spd = ran.nextInt(2) + 3 + speed;
+    this.setyDirection(direction.value);
     this.yv = spd;
   }
 
-  public Speed(float xv, float yv) {
+  public Velocity(float xv, float yv) {
     this.yv = yv;
   }
 

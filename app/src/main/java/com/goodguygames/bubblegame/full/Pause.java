@@ -20,20 +20,18 @@ import java.io.IOException;
 public class Pause extends Activity {
 
   private ImageView play;
-  private ImageButton mutesound;
+  private ImageButton muteSound;
   private DataBaseHelper myDbHelper;
   private boolean isMute = false;
   private MediaPlayer mp;
-  private Button exit;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    // setContentView(new MainGamePanel(this));
     setContentView(R.layout.pausescreen);
-    this.mutesound = (ImageButton) this.findViewById(R.id.muteUnmute);
+    this.muteSound = (ImageButton) this.findViewById(R.id.muteUnmute);
     myDbHelper = new DataBaseHelper(this);
     try {
       myDbHelper.createDataBase();
@@ -41,49 +39,41 @@ public class Pause extends Activity {
       throw new Error("Unable to create database");
     }
 
-    try {
-      myDbHelper.openDataBase();
-
-    } catch (SQLException sqle) {
-      throw sqle;
-    }
+    myDbHelper.openDataBase();
     myDbHelper.Exists();
 
     if (myDbHelper.getisSound().equals("1")) {
       isMute = false;
-      mutesound.setImageResource(R.drawable.button_unmute);
+      muteSound.setImageResource(R.drawable.button_unmute);
     } else {
       isMute = true;
-      mutesound.setImageResource(R.drawable.button_mute);
+      muteSound.setImageResource(R.drawable.button_mute);
     }
 
-    this.mutesound.setOnClickListener(new View.OnClickListener() {
+    this.muteSound.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.muteUnmute)) {
-          try {
-            if (isMute == false) {
-              isMute = true;
-              myDbHelper.setisSound("0");
-              mutesound.setImageResource(R.drawable.button_mute);
-            } else if (isMute == true) {
-              isMute = false;
-              mp = MediaPlayer.create(Pause.this, R.raw.bub_pop);
-              mp.setVolume(0, 1);
-              mp.setOnCompletionListener(new OnCompletionListener() {
+          if (!isMute) {
+            isMute = true;
+            myDbHelper.setisSound("0");
+            muteSound.setImageResource(R.drawable.button_mute);
+          } else if (isMute) {
+            isMute = false;
+            mp = MediaPlayer.create(Pause.this, R.raw.bub_pop);
+            mp.setVolume(0, 1);
+            mp.setOnCompletionListener(new OnCompletionListener() {
 
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                  // TODO Auto-generated method stub
-                  mp.release();
-                }
+              @Override
+              public void onCompletion(MediaPlayer mp) {
+                mp.release();
+              }
 
-              });
-              mp.start();
-              myDbHelper.setisSound("1");
-              mutesound.setImageResource(R.drawable.button_unmute);
-            }
-          } catch (Exception e) {}
+            });
+            mp.start();
+            myDbHelper.setisSound("1");
+            muteSound.setImageResource(R.drawable.button_unmute);
+          }
         }
       }
     });
@@ -105,7 +95,6 @@ public class Pause extends Activity {
 
             @Override
             public void onCompletion(MediaPlayer mp) {
-              // TODO Auto-generated method stub
               mp.release();
             }
 
@@ -117,16 +106,13 @@ public class Pause extends Activity {
       }
     });
 
-    this.exit = (Button) this.findViewById(R.id.exitButton);
-    this.exit.setOnClickListener(new View.OnClickListener() {
+    Button exit = (Button) this.findViewById(R.id.exitButton);
+    exit.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.exitButton)) {
-          try {
-            setResult(RESULT_OK, null);
-            finish();
-          } catch (Exception e) {
-          }
+          setResult(RESULT_OK, null);
+          finish();
         }
       }
     });
