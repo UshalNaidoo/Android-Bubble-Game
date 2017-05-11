@@ -18,13 +18,16 @@ import android.view.SurfaceView;
 
 import com.goodguygames.bubblegame.model.Bubble;
 import com.goodguygames.bubblegame.model.GoodBubble;
+import com.goodguygames.bubblegame.model.Heart;
 
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
   public static int score = 0;
-  private int lives = 3;
+  public static int maxLives = 10;
+  public static int lives = 3;
   public static MainThread thread;
   private Bubble goodBubble;
+  private Bubble heart;
   public static int screenHeight = 0;
   public static int screenWidth = 0;
 
@@ -62,6 +65,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     screenHeight = metrics.heightPixels;
     screenWidth = metrics.widthPixels;
     goodBubble = new GoodBubble();
+    heart = new Heart();
 
   }
 
@@ -94,6 +98,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
       if (goodBubble != null) {
         goodBubble.handleActionDown((int) event.getX(), (int) event.getY());
       }
+      if (heart != null) {
+        heart.handleActionDown((int) event.getX(), (int) event.getY());
+      }
     }
     return true;
   }
@@ -108,6 +115,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     if (goodBubble != null) {
       goodBubble.draw(canvas);
     }
+    if (heart != null) {
+      heart.draw(canvas);
+    }
   }
 
   /**
@@ -117,33 +127,10 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   public void update() {
     if (goodBubble != null) {
       goodBubble.moveBubble();
-      checkHit(goodBubble);
     }
-  }
-
-  public void checkHit(Bubble droid) {
-    if (!droid.isBubbleOnScreen()) {
-      if ((droid == goodBubble)) {
-        ((QuickPlay) getContext()).bonkSound();
-        loseAlife();
-        goodBubble.resetBubblePosition();
-      }
-      if (lives < 1) {
-        Context context = getContext(); // from MySurfaceView/Activity
-        Intent intent = new Intent(context, GameOver.class);
-        intent.putExtra("score", Integer.toString(score));
-        context.startActivity(intent);
-        if (thread.isAlive()) {
-          thread.setRunning(false);
-        }
-        ((Activity) getContext()).finish();
-      }
+    if (heart != null) {
+      heart.moveBubble();
     }
-  }
-
-  private void loseAlife() {
-    lives--;
-    ((QuickPlay) getContext()).setLives(lives);
   }
 
 }

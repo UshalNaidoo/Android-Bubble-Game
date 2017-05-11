@@ -24,9 +24,7 @@ public class QuickPlay extends Activity {
   private static DataBaseHelper myDbHelper;
   private MediaPlayer mp;
 
-  private MediaPlayer mp1;
-
-  private ProgressBar LivesLevel;
+  private static ProgressBar lifeBar;
   private ImageButton muteSound;
   private boolean isMute = false;
   private static Context context;
@@ -53,10 +51,10 @@ public class QuickPlay extends Activity {
     myDbHelper.openDataBase();
 
     highScoreText.setText(myDbHelper.getHighScore());
-    this.LivesLevel = (ProgressBar) this.findViewById(R.id.lifebar);
-    LivesLevel.setProgressDrawable(getResources().getDrawable(R.drawable.life_bar));
-    LivesLevel.setMax(5);
-    LivesLevel.setProgress(3);
+    this.lifeBar = (ProgressBar) this.findViewById(R.id.lifebar);
+    lifeBar.setProgressDrawable(getResources().getDrawable(R.drawable.life_bar));
+    lifeBar.setMax(MainGamePanel.maxLives);
+    lifeBar.setProgress(MainGamePanel.lives);
     MainGamePanel.score = 0;
 
     if (myDbHelper.getisSound().equals("1")) {
@@ -125,11 +123,10 @@ public class QuickPlay extends Activity {
     return QuickPlay.context;
   }
 
-  public void bonkSound() {
-    QuickPlay.this.runOnUiThread(new Runnable() {
+  public static void bonkSound() {
+    ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
-        mp = MediaPlayer.create(QuickPlay.this, R.raw.bonk);
-
+        final MediaPlayer mp = MediaPlayer.create(QuickPlay.getAppContext(), R.raw.bonk);
         if (myDbHelper.getisSound().equals("1")) {
           mp.setVolume(0, 1);
         } else {
@@ -144,16 +141,14 @@ public class QuickPlay extends Activity {
 
         });
         mp.start();
-
-
       }
     });
   }
 
-  public void chimeSound() {
-    QuickPlay.this.runOnUiThread(new Runnable() {
+  public static void chimeSound() {
+    ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
-        mp1 = MediaPlayer.create(QuickPlay.this, R.raw.chime);
+        final MediaPlayer mp1 = MediaPlayer.create(QuickPlay.getAppContext(), R.raw.chime);
         if (myDbHelper.getisSound().equals("1")) {
           mp1.setVolume(0, 1);
         } else {
@@ -168,7 +163,6 @@ public class QuickPlay extends Activity {
 
         });
         mp1.start();
-
       }
     });
   }
@@ -204,12 +198,33 @@ public class QuickPlay extends Activity {
     });
   }
 
-  public void setLives(final int lives) {
-    QuickPlay.this.runOnUiThread(new Runnable() {
+  public static void gainALife() {
+    MainGamePanel.lives = MainGamePanel.lives == MainGamePanel.maxLives ? MainGamePanel.lives : MainGamePanel.lives + 1;
+    ((Activity) QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
-        LivesLevel.setProgress(lives);
+        lifeBar.setProgress(MainGamePanel.lives);
       }
     });
+  }
+
+  public static void loseALife() {
+    MainGamePanel.lives -= 1;
+    ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
+      public void run() {
+        lifeBar.setProgress(MainGamePanel.lives);
+      }
+    });
+
+    if (MainGamePanel.lives == 0) {
+      Intent intent = new Intent(context, GameOver.class);
+      intent.putExtra("score", Integer.toString(MainGamePanel.score));
+      context.startActivity(intent);
+      if (MainGamePanel.thread.isAlive()) {
+        MainGamePanel.thread.setRunning(false);
+      }
+      ((Activity)getAppContext()).finish();
+    }
+
   }
 
   @Override

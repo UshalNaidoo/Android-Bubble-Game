@@ -2,6 +2,7 @@ package com.goodguygames.bubblegame.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import com.goodguygames.bubblegame.full.MainGamePanel;
 
 public abstract class Bubble {
 
@@ -18,12 +19,6 @@ public abstract class Bubble {
   public Bubble(int x, int y) {
     this.setX(x);
     this.setY(y);
-  }
-
-  public Bubble(int x, int y, int points) {
-    this.setX(x);
-    this.setY(y);
-    this.setPoints(points);
   }
 
   public Velocity getVelocity() {
@@ -95,7 +90,7 @@ public abstract class Bubble {
       return false;
     }
     else if (this.getVelocity().getyDirection() == Direction.DOWN.value
-        && this.getY() - this.getBitmap().getHeight() / 2 >= 0) {
+        && this.getY() - this.getBitmap().getHeight() / 2 >= MainGamePanel.screenHeight) {
       return false;
     }
     return true;
@@ -106,6 +101,15 @@ public abstract class Bubble {
    */
   public void moveBubble() {
     y += (velocity.getYv() * velocity.getyDirection());
+
+    if (!isBubbleOnScreen()) {
+      bubbleOutOfView();
+    }
+
+  }
+
+  public void bubbleOutOfView() {
+
   }
 
   public void resetBubblePosition() {

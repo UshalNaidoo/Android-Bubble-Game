@@ -14,7 +14,7 @@ import com.goodguygames.bubblegame.full.R;
 public class GoodBubble extends Bubble {
 
   private Velocity velocity;
-  Random random;
+  private Random random;
 
   public GoodBubble() {
     super();
@@ -38,6 +38,13 @@ public class GoodBubble extends Bubble {
     this.setY(MainGamePanel.screenHeight);
     random = new Random();
     this.setX(random.nextInt(MainGamePanel.screenWidth));
+  }
+
+  @Override
+  public void bubbleOutOfView() {
+    QuickPlay.bonkSound();
+    QuickPlay.loseALife();
+    resetBubblePosition();
   }
 
 }
