@@ -19,12 +19,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:focusable="false"
-            android:text="Game Over"
+            android:text="@string/game_over"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#1D4088"
             android:textSize="22sp" />
     </RelativeLayout>
-
 
     <TextView
         android:id="@+id/textView2"
@@ -33,7 +32,7 @@
         android:layout_below="@+id/barlayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="109dp"
-        android:text="Your Score"
+        android:text="@string/your_score"
         android:textColor="#0f988a"
         android:textSize="22sp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -45,8 +44,8 @@
         android:layout_below="@+id/barlayout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="210dp"
-        android:text="High Score"
-        android:textSize="22dp"
+        android:text="@string/high_score"
+        android:textSize="22sp"
         android:textColor="#0f988a"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -57,9 +56,9 @@
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
-        android:text="0"
+        android:text="@string/zero"
         android:textColor="#1D4088"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -70,10 +69,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
         android:focusable="false"
-        android:text="HIGH SCORE!!"
+        android:text="@string/high_score"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#f75625"
-        android:textSize="22dp" />
+        android:textSize="22sp" />
     <TextView
         android:id="@+id/yourscore"
         android:layout_width="wrap_content"
@@ -81,10 +80,10 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="22dp"
-        android:text="0"
+        android:text="@string/zero"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#1D4088"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/button1"
@@ -94,8 +93,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/buttons_background"
-        android:text="Play Again"
+        android:text="@string/retry"
         android:textColor="@drawable/button_color"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
 </RelativeLayout>

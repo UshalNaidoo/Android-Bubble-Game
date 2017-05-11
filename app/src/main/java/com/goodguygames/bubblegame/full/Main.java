@@ -2,13 +2,9 @@ package com.goodguygames.bubblegame.full;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.SQLException;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,12 +20,11 @@ import java.io.IOException;
 
 public class Main extends Activity {
 
-  private Button ButtonPlay;
-  private MediaPlayer mp;
-  private DataBaseHelper myDbHelper;
+  private MediaPlayer mediaPlayer;
+  private DataBaseHelper dataBaseHelper;
   private int played;
-  private TextView highscr;
-  private ImageButton mutesound;
+  private TextView highScoreTextView;
+  private ImageButton muteSound;
   private boolean isMute = false;
 
   @Override
@@ -38,91 +33,79 @@ public class Main extends Activity {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.main);
-
-    this.mutesound = (ImageButton) this.findViewById(R.id.muteUnmute);
-    myDbHelper = new DataBaseHelper(this);
+    this.muteSound = (ImageButton) this.findViewById(R.id.muteUnmute);
+    dataBaseHelper = new DataBaseHelper(this);
     try {
-      myDbHelper.createDataBase();
+      dataBaseHelper.createDataBase();
     } catch (IOException ioe) {
       throw new Error("Unable to create database");
     }
 
-    try {
-      myDbHelper.openDataBase();
+    dataBaseHelper.openDataBase();
+    dataBaseHelper.Exists();
 
-    } catch (SQLException sqle) {
-      throw sqle;
-    }
-    myDbHelper.Exists();
+    played = Integer.parseInt(dataBaseHelper.getTimesPlayed());
+    highScoreTextView = (TextView) findViewById(R.id.textView1);
+    highScoreTextView.setText(getResources().getString(R.string.high_score) + dataBaseHelper.getHighScore());
 
-    played = Integer.parseInt(myDbHelper.getTimesPlayed());
-    highscr = (TextView) findViewById(R.id.textView1);
-    highscr.setText("High Score : " + myDbHelper.getHighScore());
-    if (myDbHelper.getisSound().equals("1")) {
+    if (dataBaseHelper.getisSound().equals("1")) {
       isMute = false;
-      mutesound.setImageResource(R.drawable.button_unmute);
+      muteSound.setImageResource(R.drawable.button_unmute);
     } else {
       isMute = true;
-      mutesound.setImageResource(R.drawable.button_mute);
+      muteSound.setImageResource(R.drawable.button_mute);
     }
 
-    this.ButtonPlay = (Button) this.findViewById(R.id.button1);
-    this.ButtonPlay.setOnClickListener(new View.OnClickListener() {
+    Button buttonPlay = (Button) this.findViewById(R.id.button1);
+    buttonPlay.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
-          try {
-            mp = MediaPlayer.create(Main.this, R.raw.bub_pop);
-            if (myDbHelper.getisSound().equals("1")) {
-              mp.setVolume(0, 1);
-            } else {
-              mp.setVolume(0, 0);
+          mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
+          if (dataBaseHelper.getisSound().equals("1")) {
+            mediaPlayer.setVolume(0, 1);
+          } else {
+            mediaPlayer.setVolume(0, 0);
+          }
+          mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+              mp.release();
             }
-            mp.setOnCompletionListener(new OnCompletionListener() {
+
+          });
+          mediaPlayer.start();
+
+          startActivity(new Intent(Main.this, QuickPlay.class));
+          played++;
+          dataBaseHelper.setTimesPlayed(Integer.toString(played));
+        }
+      }
+    });
+
+    this.muteSound.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (view == findViewById(R.id.muteUnmute)) {
+          if (!isMute) {
+            isMute = true;
+            dataBaseHelper.setisSound("0");
+            muteSound.setImageResource(R.drawable.button_mute);
+          } else if (isMute) {
+            isMute = false;
+            mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
+            mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
               @Override
               public void onCompletion(MediaPlayer mp) {
                 mp.release();
               }
-
             });
-            mp.start();
-
-            Intent quickplaypage = new Intent(Main.this, QuickPlay.class);
-            startActivity(quickplaypage);
-            played++;
-            myDbHelper.setTimesPlayed(Integer.toString(played));
-          } catch (Exception e) {
+            mediaPlayer.start();
+            dataBaseHelper.setisSound("1");
+            muteSound.setImageResource(R.drawable.button_unmute);
           }
-        }
-      }
-    });
-
-    this.mutesound.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if (view == findViewById(R.id.muteUnmute)) {
-          try {
-            if (isMute == false) {
-              isMute = true;
-              myDbHelper.setisSound("0");
-              mutesound.setImageResource(R.drawable.button_mute);
-            } else if (isMute == true) {
-              isMute = false;
-              mp = MediaPlayer.create(Main.this, R.raw.bub_pop);
-              mp.setOnCompletionListener(new OnCompletionListener() {
-
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                  mp.release();
-                }
-
-              });
-              mp.start();
-              myDbHelper.setisSound("1");
-              mutesound.setImageResource(R.drawable.button_unmute);
-            }
-          } catch (Exception e) {}
         }
       }
     });
@@ -131,34 +114,30 @@ public class Main extends Activity {
 
   @Override
   protected void onDestroy() {
-    myDbHelper.close();
+    dataBaseHelper.close();
     super.onDestroy();
   }
 
   @Override
   protected void onResume() {
-    myDbHelper = new DataBaseHelper(this);
+    dataBaseHelper = new DataBaseHelper(this);
     try {
-      myDbHelper.createDataBase();
+      dataBaseHelper.createDataBase();
     } catch (IOException ioe) {
       throw new Error("Unable to create database");
     }
 
-    try {
-      myDbHelper.openDataBase();
+    dataBaseHelper.openDataBase();
 
-    } catch (SQLException sqle) {
-      throw sqle;
-    }
-    highscr = (TextView) findViewById(R.id.textView1);
-    highscr.setText("High Score : " + myDbHelper.getHighScore());
+    highScoreTextView = (TextView) findViewById(R.id.textView1);
+    highScoreTextView.setText(getResources().getString(R.string.high_score) + dataBaseHelper.getHighScore());
 
-    if (myDbHelper.getisSound().equals("1")) {
+    if (dataBaseHelper.getisSound().equals("1")) {
       isMute = false;
-      mutesound.setImageResource(R.drawable.button_unmute);
+      muteSound.setImageResource(R.drawable.button_unmute);
     } else {
       isMute = true;
-      mutesound.setImageResource(R.drawable.button_mute);
+      muteSound.setImageResource(R.drawable.button_mute);
     }
     super.onResume();
   }
@@ -178,22 +157,17 @@ public class Main extends Activity {
     super.onActivityResult(requestCode, resultCode, data);
   }
 
-  public boolean isOnline() {
-    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-    return netInfo != null && netInfo.isConnected();
-  }
 
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-      mp = MediaPlayer.create(Main.this, R.raw.bub_pop);
-      if (myDbHelper.getisSound().equals("1")) {
-        mp.setVolume(0, 1);
+      mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
+      if (dataBaseHelper.getisSound().equals("1")) {
+        mediaPlayer.setVolume(0, 1);
       } else {
-        mp.setVolume(0, 0);
+        mediaPlayer.setVolume(0, 0);
       }
-      mp.setOnCompletionListener(new OnCompletionListener() {
+      mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
         @Override
         public void onCompletion(MediaPlayer mp) {
@@ -201,7 +175,7 @@ public class Main extends Activity {
         }
 
       });
-      mp.start();
+      mediaPlayer.start();
       finish();
       return true;
     }

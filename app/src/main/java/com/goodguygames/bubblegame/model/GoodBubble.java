@@ -3,25 +3,40 @@
  */
 package com.goodguygames.bubblegame.model;
 
+import java.util.Random;
+
 import android.graphics.BitmapFactory;
 
 import com.goodguygames.bubblegame.full.MainGamePanel;
+import com.goodguygames.bubblegame.full.QuickPlay;
 import com.goodguygames.bubblegame.full.R;
 
 public class GoodBubble extends Bubble {
 
-  public GoodBubble(int speed, int x, int y) {
-    super(x, y);
-    this.setBitmap(BitmapFactory.decodeResource(MainGamePanel.getGameContext().getResources(), R.drawable.bubble));
-    this.setVelocity(new Velocity(speed, Direction.UP));
+  private Velocity velocity;
+  Random random;
+
+  public GoodBubble() {
+    super();
+    this.setBitmap(BitmapFactory.decodeResource(QuickPlay.getAppContext().getResources(), R.drawable.bubble));
+
+    velocity = new Velocity(1, Direction.UP);
+    this.setVelocity(velocity);
+    resetBubblePosition();
   }
 
   @Override
   public void setTouched() {
 //    QuickPlay.popSound();
-//    QuickPlay.setScore(Integer.toString(MainGamePanel.score++));
-    setX(-100);
-    setY(-100);
-    setVelocity(new Velocity(0, Direction.UP));
+//    QuickPlay.setPoints(Integer.toString(MainGamePanel.score++));
+    resetBubblePosition();
   }
+
+  @Override
+  public void resetBubblePosition() {
+    this.setY(MainGamePanel.screenHeight);
+    random = new Random();
+    this.setX(random.nextInt(MainGamePanel.screenWidth));
+  }
+
 }

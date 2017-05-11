@@ -1,8 +1,8 @@
 package com.goodguygames.bubblegame.full;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.database.SQLException;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -20,23 +20,28 @@ import com.goodguygames.bubblegame.util.DataBaseHelper;
 import java.io.IOException;
 
 public class QuickPlay extends Activity {
-  private static TextView scoreTxt;
-  private static DataBaseHelper myDbHelper;
-  private MediaPlayer mp, mp1, mp2;
+  private TextView scoreTxt;
+  private DataBaseHelper myDbHelper;
+  private MediaPlayer mp;
+
+  private MediaPlayer mp1;
+
   private ProgressBar LivesLevel;
-  private ImageButton mutesound;
+  private ImageButton muteSound;
   private boolean isMute = false;
+  private static Context context;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    QuickPlay.context = this;
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.gamepanel);
-    this.mutesound = (ImageButton) this.findViewById(R.id.imageView2);
+    this.muteSound = (ImageButton) this.findViewById(R.id.imageView2);
 
     scoreTxt = (TextView) findViewById(R.id.score);
-    TextView highscoreTxt = (TextView) findViewById(R.id.highscore);
+    TextView highScoreText = (TextView) findViewById(R.id.highscore);
 
     myDbHelper = new DataBaseHelper(this);
     try {
@@ -45,13 +50,9 @@ public class QuickPlay extends Activity {
       throw new Error("Unable to create database");
     }
 
-    try {
-      myDbHelper.openDataBase();
-    } catch (SQLException sqle) {
-      throw sqle;
-    }
+    myDbHelper.openDataBase();
 
-    highscoreTxt.setText(myDbHelper.getHighScore());
+    highScoreText.setText(myDbHelper.getHighScore());
     this.LivesLevel = (ProgressBar) this.findViewById(R.id.lifebar);
     LivesLevel.setProgressDrawable(getResources().getDrawable(R.drawable.life_bar));
     LivesLevel.setMax(5);
@@ -59,37 +60,35 @@ public class QuickPlay extends Activity {
 
     if (myDbHelper.getisSound().equals("1")) {
       isMute = false;
-      mutesound.setImageResource(R.drawable.button_unmute_small);
+      muteSound.setImageResource(R.drawable.button_unmute_small);
     } else {
       isMute = true;
-      mutesound.setImageResource(R.drawable.button_mute_small);
+      muteSound.setImageResource(R.drawable.button_mute_small);
     }
 
-    this.mutesound.setOnClickListener(new View.OnClickListener() {
+    this.muteSound.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.imageView2)) {
-          try {
-            if (isMute == false) {
-              isMute = true;
-              myDbHelper.setisSound("0");
-              mutesound.setImageResource(R.drawable.button_mute_small);
-            } else if (isMute == true) {
-              isMute = false;
-              mp = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
-              mp.setVolume(0, 1);
-              mp.setOnCompletionListener(new OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                  mp.release();
-                }
+          if (!isMute) {
+            isMute = true;
+            myDbHelper.setisSound("0");
+            muteSound.setImageResource(R.drawable.button_mute_small);
+          } else if (isMute) {
+            isMute = false;
+            mp = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
+            mp.setVolume(0, 1);
+            mp.setOnCompletionListener(new OnCompletionListener() {
+              @Override
+              public void onCompletion(MediaPlayer mp) {
+                mp.release();
+              }
 
-              });
-              mp.start();
-              myDbHelper.setisSound("1");
-              mutesound.setImageResource(R.drawable.button_unmute_small);
-            }
-          } catch (Exception e) {}
+            });
+            mp.start();
+            myDbHelper.setisSound("1");
+            muteSound.setImageResource(R.drawable.button_unmute_small);
+          }
         }
       }
     });
@@ -119,6 +118,10 @@ public class QuickPlay extends Activity {
         }
       }
     });
+  }
+
+  public static Context getAppContext() {
+    return QuickPlay.context;
   }
 
   public void bonkSound() {

@@ -9,18 +9,21 @@ public abstract class Bubble {
   private int x;                        // the X coordinate
   private int y;                        // the Y coordinate
   private Velocity velocity;        // the velocity with its directions
-  private int score;
+  private int points;
 
+
+  public Bubble() {
+  }
 
   public Bubble(int x, int y) {
     this.setX(x);
     this.setY(y);
   }
 
-  public Bubble(int x, int y, int score) {
+  public Bubble(int x, int y, int points) {
     this.setX(x);
     this.setY(y);
-    this.setScore(score);
+    this.setPoints(points);
   }
 
   public Velocity getVelocity() {
@@ -55,12 +58,12 @@ public abstract class Bubble {
     this.y = y;
   }
 
-  public int getScore() {
-    return score;
+  public int getPoints() {
+    return points;
   }
 
-  public void setScore(int score) {
-    this.score = score;
+  public void setPoints(int points) {
+    this.points = points;
   }
 
   /**
@@ -86,11 +89,27 @@ public abstract class Bubble {
     }
   }
 
+  public boolean isBubbleOnScreen() {
+    if (this.getVelocity().getyDirection() == Direction.UP.value
+        && this.getY() - this.getBitmap().getHeight() / 2 <= 0) {
+      return false;
+    }
+    else if (this.getVelocity().getyDirection() == Direction.DOWN.value
+        && this.getY() - this.getBitmap().getHeight() / 2 >= 0) {
+      return false;
+    }
+    return true;
+  }
+
   /**
    * Method which updates the droid's internal state every tick
    */
-  public void update() {
+  public void moveBubble() {
     y += (velocity.getYv() * velocity.getyDirection());
+  }
+
+  public void resetBubblePosition() {
+    x = 0;
   }
 
   public void draw(Canvas canvas) {

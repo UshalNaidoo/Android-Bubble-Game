@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.goodguygames.bubblegame.full;
 
 import android.graphics.Canvas;
@@ -8,7 +5,7 @@ import android.view.SurfaceHolder;
 
 public class MainThread extends Thread {
 
-  private SurfaceHolder surfaceHolder;
+  private final SurfaceHolder surfaceHolder;
   private MainGamePanel gamePanel;
   private boolean running;
 
@@ -16,7 +13,7 @@ public class MainThread extends Thread {
     this.running = running;
   }
 
-  public MainThread(SurfaceHolder surfaceHolder, MainGamePanel gamePanel) {
+  MainThread(SurfaceHolder surfaceHolder, MainGamePanel gamePanel) {
     super();
     this.surfaceHolder = surfaceHolder;
     this.gamePanel = gamePanel;

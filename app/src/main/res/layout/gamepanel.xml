@@ -17,11 +17,11 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentTop="true"
-				android:text="Score :"
+				android:text="@string/score"
 				android:textColor="#1D4088"
 				android:padding="3dp"
 				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:textSize="22dp" />
+				android:textSize="22sp" />
 
 
 		<TextView
@@ -30,7 +30,7 @@
 				android:layout_height="wrap_content"
 				android:layout_alignParentTop="true"
 				android:layout_toRightOf="@+id/textView1"
-				android:text="0"
+				android:text="@string/zero"
 				android:textColor="#1D4088"
 				android:padding="3dp"
 				android:textAppearance="?android:attr/textAppearanceSmall"
@@ -43,7 +43,7 @@
 				android:layout_height="wrap_content"
 				android:layout_alignParentLeft="true"
 				android:layout_below="@+id/textView1"
-				android:text="High Score :"
+				android:text="@string/high_score"
 				android:textColor="#1D4088"
 				android:padding="3dp"
 				android:textAppearance="?android:attr/textAppearanceSmall"
@@ -55,7 +55,7 @@
 				android:layout_height="wrap_content"
 				android:layout_below="@+id/textView1"
 				android:layout_toRightOf="@+id/textView2"
-				android:text="0"
+				android:text="@string/zero"
 				android:textColor="#1D4088"
 				android:padding="3dp"
 				android:textAppearance="?android:attr/textAppearanceSmall"
@@ -79,7 +79,8 @@
 				android:layout_height="wrap_content"
 				android:layout_alignParentTop="true"
 				android:layout_toLeftOf="@+id/lifebar"
-				android:src="@drawable/heart" />
+				android:src="@drawable/heart"
+				android:contentDescription="@string/lives"/>
 
 		<ImageView
 				android:id="@+id/ImageView01"
@@ -87,7 +88,8 @@
 				android:layout_height="wrap_content"
 				android:layout_alignRight="@+id/lifebar"
 				android:layout_below="@+id/score"
-				android:src="@drawable/pause" />
+				android:src="@drawable/pause"
+				android:contentDescription="@string/press_to_pause"/>
 
 		<ImageButton
 				android:id="@+id/imageView2"

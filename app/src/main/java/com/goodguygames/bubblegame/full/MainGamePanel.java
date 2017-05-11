@@ -17,7 +17,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.goodguygames.bubblegame.model.Bubble;
-import com.goodguygames.bubblegame.model.Direction;
 import com.goodguygames.bubblegame.model.GoodBubble;
 
 public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
@@ -25,20 +24,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   public static int score = 0;
   private int lives = 3;
   public static MainThread thread;
-  private Bubble bubble1, bubble2, bubble3, bubble4, bubble5;
-  private Bubble bubble2_1, bubble2_2, bubble2_3, bubble2_4, bubble2_5;
-  private Bubble bubble5_1, bubble5_2, bubble5_3, bubble5_4, bubble5_5;
-  private Bubble bomb1 = null, bomb2 = null, bomb3 = null, bomb4 = null, bomb5 = null;
-  private Bubble heart1 = null, heart2 = null, heart3 = null, heart4 = null, heart5 = null;
-  private int screenHeight = 0;
-  private int screenWidth = 0;
-  private int spacer = 0;
-  private int space1, space2, space3, space4, space5;
-  private int speedCount = 1;
-  private int modCounter = 1;
-  private int modCounter1 = 1;
-  private int percheart = 1;
-  private static Context context;
+  private Bubble goodBubble;
+  public static int screenHeight = 0;
+  public static int screenWidth = 0;
 
   public MainGamePanel(Context context) {
     super(context);
@@ -68,28 +56,13 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
    * Split the screen into a grid of 5 columns.
    */
   private void setUpScene() {
-    context = this.getContext();
 
     DisplayMetrics metrics = new DisplayMetrics();
     ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(metrics);
     screenHeight = metrics.heightPixels;
     screenWidth = metrics.widthPixels;
-    spacer = screenWidth / 5;
-    space1 = spacer - 40;
-    space2 = space1 + spacer;
-    space3 = space2 + spacer;
-    space4 = space3 + spacer;
-    space5 = space4 + spacer;
+    goodBubble = new GoodBubble();
 
-    bubble1 = new GoodBubble(speedCount, space1, screenHeight + 500);
-    bubble2 = new GoodBubble(speedCount, space2, screenHeight + 500);
-    bubble3 = new GoodBubble(speedCount, space3, screenHeight + 500);
-    bubble4 = new GoodBubble(speedCount, space4, screenHeight + 500);
-    bubble5 = new GoodBubble(speedCount, space5, screenHeight + 500);
-  }
-
-  public static Context getGameContext() {
-    return context;
   }
 
   @Override
@@ -118,375 +91,42 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   public boolean onTouchEvent(MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
       // delegating event handling to the droid
-      if (bubble1 != null) {
-        bubble1.handleActionDown((int) event.getX(), (int) event.getY());
-        }
+      if (goodBubble != null) {
+        goodBubble.handleActionDown((int) event.getX(), (int) event.getY());
       }
-      if (bubble2 != null) {
-        bubble2.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble3 != null) {
-        bubble3.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble4 != null) {
-        bubble4.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble5 != null) {
-        bubble5.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-
-      if (bubble2_1 != null) {
-        bubble2_1.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble2_2 != null) {
-        bubble2_2.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble2_3 != null) {
-        bubble2_3.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble2_4 != null) {
-        bubble2_4.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble2_5 != null) {
-        bubble2_5.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-
-      if (bubble5_1 != null) {
-        bubble5_1.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble5_2 != null) {
-        bubble5_2.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble5_3 != null) {
-        bubble5_3.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble5_4 != null) {
-        bubble5_4.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bubble5_5 != null) {
-        bubble5_5.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-
-      //BOMBS
-      if (bomb1 != null) {
-        bomb1.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bomb2 != null) {
-        bomb2.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bomb3 != null) {
-        bomb3.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bomb4 != null) {
-        bomb4.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (bomb5 != null) {
-        bomb5.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-
-      //Heart
-
-      int maxlives = 5;
-      if (heart1 != null) {
-        heart1.handleActionDown((int) event.getX(), (int) event.getY());
-//          bubble1 = new GoodBubble(speedCount, space1, screenHeight);
-      }
-      if (heart2 != null) {
-        heart2.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (heart3 != null) {
-        heart3.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (heart4 != null) {
-        heart4.handleActionDown((int) event.getX(), (int) event.getY());
-      }
-      if (heart5 != null) {
-        heart5.handleActionDown((int) event.getX(), (int) event.getY());
-      }
+    }
     return true;
   }
 
   public void render(Canvas canvas) {
-    //canvas.drawRGB(213, 243, 243);
     Rect dest = new Rect(0, 0, getWidth(), getHeight());
     Paint paint = new Paint();
     paint.setFilterBitmap(true);
     if (canvas != null) {
       canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.background1), null, dest, paint);
-    }                //canvas.drawBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.background1), 0, 0, null);
-    if (bubble1 != null) {
-      bubble1.draw(canvas);
     }
-    if (bubble2 != null) {
-      bubble2.draw(canvas);
-    }
-    if (bubble3 != null) {
-      bubble3.draw(canvas);
-    }
-    if (bubble4 != null) {
-      bubble4.draw(canvas);
-    }
-    if (bubble5 != null) {
-      bubble5.draw(canvas);
-    }
-
-    if (bubble2_1 != null) {
-      bubble2_1.draw(canvas);
-    }
-    if (bubble2_2 != null) {
-      bubble2_2.draw(canvas);
-    }
-    if (bubble2_3 != null) {
-      bubble2_3.draw(canvas);
-    }
-    if (bubble2_4 != null) {
-      bubble2_4.draw(canvas);
-    }
-    if (bubble2_5 != null) {
-      bubble2_5.draw(canvas);
-    }
-
-    if (bubble5_1 != null) {
-      bubble5_1.draw(canvas);
-    }
-    if (bubble5_2 != null) {
-      bubble5_2.draw(canvas);
-    }
-    if (bubble5_3 != null) {
-      bubble5_3.draw(canvas);
-    }
-    if (bubble5_4 != null) {
-      bubble5_4.draw(canvas);
-    }
-    if (bubble5_5 != null) {
-      bubble5_5.draw(canvas);
-    }
-
-    if (bomb1 != null) {
-      bomb1.draw(canvas);
-    }
-    if (bomb2 != null) {
-      bomb2.draw(canvas);
-    }
-    if (bomb3 != null) {
-      bomb3.draw(canvas);
-    }
-    if (bomb4 != null) {
-      bomb4.draw(canvas);
-    }
-    if (bomb5 != null) {
-      bomb5.draw(canvas);
-    }
-
-    if (heart1 != null) {
-      heart1.draw(canvas);
-    }
-    if (heart2 != null) {
-      heart2.draw(canvas);
-    }
-    if (heart3 != null) {
-      heart3.draw(canvas);
-    }
-    if (heart4 != null) {
-      heart4.draw(canvas);
-    }
-    if (heart5 != null) {
-      heart5.draw(canvas);
+    if (goodBubble != null) {
+      goodBubble.draw(canvas);
     }
   }
 
   /**
-   * This is the game update method. It iterates through all the objects and calls their update
-   * method if they have one or calls specific engine's update method.
+   * This is the game moveBubble method. It iterates through all the objects and calls their moveBubble
+   * method if they have one or calls specific engine's moveBubble method.
    */
   public void update() {
-    // check collision with top wall if heading up
-    if (bubble1 != null) {
-      bubble1.update();
-      checkHit(bubble1);
-    }
-    if (bubble2 != null) {
-      bubble2.update();
-      checkHit(bubble2);
-    }
-    if (bubble3 != null) {
-      bubble3.update();
-      checkHit(bubble3);
-    }
-    if (bubble4 != null) {
-      bubble4.update();
-      checkHit(bubble4);
-    }
-    if (bubble5 != null) {
-      bubble5.update();
-      checkHit(bubble5);
-    }
-
-    if (bubble2_1 != null) {
-      bubble2_1.update();
-      checkHit(bubble2_1);
-    }
-    if (bubble2_2 != null) {
-      bubble2_2.update();
-      checkHit(bubble2_2);
-    }
-    if (bubble2_3 != null) {
-      bubble2_3.update();
-      checkHit(bubble2_3);
-    }
-    if (bubble2_4 != null) {
-      bubble2_4.update();
-      checkHit(bubble2_4);
-    }
-    if (bubble2_5 != null) {
-      bubble2_5.update();
-      checkHit(bubble2_5);
-    }
-
-    if (bubble5_1 != null) {
-      bubble5_1.update();
-      checkHit(bubble5_1);
-    }
-    if (bubble5_2 != null) {
-      bubble5_2.update();
-      checkHit(bubble5_2);
-    }
-    if (bubble5_3 != null) {
-      bubble5_3.update();
-      checkHit(bubble5_3);
-    }
-    if (bubble5_4 != null) {
-      bubble5_4.update();
-      checkHit(bubble5_4);
-    }
-    if (bubble5_5 != null) {
-      bubble5_5.update();
-      checkHit(bubble5_5);
-    }
-
-    if (bomb1 != null) {
-      bomb1.update();
-      checkHit(bomb1);
-    }
-    if (bomb2 != null) {
-      bomb2.update();
-      checkHit(bomb2);
-    }
-    if (bomb3 != null) {
-      bomb3.update();
-      checkHit(bomb3);
-    }
-    if (bomb4 != null) {
-      bomb4.update();
-      checkHit(bomb4);
-    }
-    if (bomb5 != null) {
-      bomb5.update();
-      checkHit(bomb5);
-    }
-
-    if (heart1 != null) {
-      heart1.update();
-      checkHit1(heart1);
-    }
-    if (heart2 != null) {
-      heart2.update();
-      checkHit1(heart2);
-    }
-    if (heart3 != null) {
-      heart3.update();
-      checkHit1(heart3);
-    }
-    if (heart4 != null) {
-      heart4.update();
-      checkHit1(heart4);
-    }
-    if (heart5 != null) {
-      heart5.update();
-      checkHit1(heart5);
+    if (goodBubble != null) {
+      goodBubble.moveBubble();
+      checkHit(goodBubble);
     }
   }
 
   public void checkHit(Bubble droid) {
-    if (droid.getVelocity().getyDirection() == Direction.UP.value
-        && droid.getY() - droid.getBitmap().getHeight() / 2 <= 0) {
-
-      if ((droid == bubble1) || (droid == bubble2_1) || (droid == bubble5_1)) {
+    if (!droid.isBubbleOnScreen()) {
+      if ((droid == goodBubble)) {
         ((QuickPlay) getContext()).bonkSound();
         loseAlife();
-        if (droid == bubble2_1) {
-          bubble2_1 = null;
-        }
-        if (droid == bubble5_1) {
-          bubble5_1 = null;
-        }
-        bubble1 = new GoodBubble(speedCount, space1, screenHeight);
-      }
-      if ((droid == bubble2) || (droid == bubble2_2) || (droid == bubble5_2)) {
-        ((QuickPlay) getContext()).bonkSound();
-        loseAlife();
-        if (droid == bubble2_2) {
-          bubble2_2 = null;
-        }
-        if (droid == bubble5_2) {
-          bubble5_2 = null;
-        }
-        bubble2 = new GoodBubble(speedCount, space2, screenHeight);
-      }
-      if ((droid == bubble3) || (droid == bubble2_3) || (droid == bubble5_3)) {
-        ((QuickPlay) getContext()).bonkSound();
-        loseAlife();
-        if (droid == bubble2_3) {
-          bubble2_3 = null;
-        }
-        if (droid == bubble5_3) {
-          bubble5_3 = null;
-        }
-        bubble3 = new GoodBubble(speedCount, space3, screenHeight);
-      }
-      if ((droid == bubble4) || (droid == bubble2_4) || (droid == bubble5_4)) {
-        ((QuickPlay) getContext()).bonkSound();
-        loseAlife();
-        if (droid == bubble2_4) {
-          bubble2_4 = null;
-        }
-        if (droid == bubble5_4) {
-          bubble5_4 = null;
-        }
-        bubble4 = new GoodBubble(speedCount, space4, screenHeight);
-      }
-      if ((droid == bubble5) || (droid == bubble2_5) || (droid == bubble5_5)) {
-        ((QuickPlay) getContext()).bonkSound();
-        loseAlife();
-        if (droid == bubble2_5) {
-          bubble2_5 = null;
-        }
-        if (droid == bubble5_5) {
-          bubble5_5 = null;
-        }
-        bubble5 = new GoodBubble(speedCount, space5, screenHeight);
-      }
-
-      //Bombs
-      if (droid == bomb1) {
-        bomb1 = null;
-        bubble1 = new GoodBubble(speedCount, space1, screenHeight);
-      }
-      if (droid == bomb2) {
-        bomb2 = null;
-        bubble2 = new GoodBubble(speedCount, space2, screenHeight);
-      }
-      if (droid == bomb3) {
-        bomb3 = null;
-        bubble3 = new GoodBubble(speedCount, space3, screenHeight);
-      }
-      if (droid == bomb4) {
-        bomb4 = null;
-        bubble4 = new GoodBubble(speedCount, space4, screenHeight);
-      }
-      if (droid == bomb5) {
-        bomb5 = null;
-        bubble5 = new GoodBubble(speedCount, space5, screenHeight);
+        goodBubble.resetBubblePosition();
       }
       if (lives < 1) {
         Context context = getContext(); // from MySurfaceView/Activity
@@ -501,48 +141,9 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
     }
   }
 
-  public void checkHit1(Bubble droid) {
-    if (droid.getVelocity().getyDirection() == Direction.DOWN.value
-        && droid.getY() + droid.getBitmap().getHeight() / 2 >= getHeight()) {
-
-      //Bombs
-      if (droid == heart1) {
-        heart1 = null;
-        bubble1 = new GoodBubble(speedCount, space1, screenHeight);
-      }
-      if (droid == heart2) {
-        heart2 = null;
-        bubble2 = new GoodBubble(speedCount, space2, screenHeight);
-      }
-      if (droid == heart3) {
-        heart3 = null;
-        bubble3 = new GoodBubble(speedCount, space3, screenHeight);
-      }
-      if (droid == heart4) {
-        heart4 = null;
-        bubble4 = new GoodBubble(speedCount, space4, screenHeight);
-      }
-      if (droid == heart5) {
-        heart5 = null;
-        bubble5 = new GoodBubble(speedCount, space5, screenHeight);
-      }
-    }
-  }
-
   private void loseAlife() {
     lives--;
     ((QuickPlay) getContext()).setLives(lives);
   }
 
-//  private void checkSpeed() {
-//    if ((score - (25 + 25 * modCounter)) >= 0) {
-//      modCounter++;
-//      speedCount++;
-//    }
-//
-//    if ((score - (5 + 5 * modCounter1)) >= 0) {
-//      modCounter1++;
-//      percheart++;
-//    }
-//  }
 }

@@ -1,30 +1,22 @@
 package com.goodguygames.bubblegame.full;
 
+import java.io.IOException;
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.SQLException;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.goodguygames.bubblegame.util.DataBaseHelper;
-
-import java.io.IOException;
 
 public class GameOver extends Activity {
 
-  private TextView yourScore, highScore;
   private DataBaseHelper myDbHelper;
-  private TextView highscrBanner;
-  private Button ButtonPlay;
   private MediaPlayer mp;
   private int played;
 
@@ -34,12 +26,12 @@ public class GameOver extends Activity {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.gameover);
-    yourScore = (TextView) findViewById(R.id.yourscore);
+    TextView yourScore = (TextView) findViewById(R.id.yourscore);
     String score = getIntent().getStringExtra("score");
     yourScore.setText(score);
-    highscrBanner = (TextView) findViewById(R.id.HighScoreTV);
-    highscrBanner.setVisibility(View.GONE);
-    highScore = (TextView) findViewById(R.id.highscore);
+    TextView highScoreBanner = (TextView) findViewById(R.id.HighScoreTV);
+    highScoreBanner.setVisibility(View.GONE);
+    TextView highScore = (TextView) findViewById(R.id.highscore);
 
     myDbHelper = new DataBaseHelper(this);
 
@@ -49,53 +41,42 @@ public class GameOver extends Activity {
       throw new Error("Unable to create database");
     }
 
-    try {
-      myDbHelper.openDataBase();
-
-    } catch (SQLException sqle) {
-      throw sqle;
-    }
+    myDbHelper.openDataBase();
 
     played = Integer.parseInt(myDbHelper.getTimesPlayed());
 
     if (Integer.parseInt(score) > Integer.parseInt(myDbHelper.getHighScore())) {
-      highscrBanner.setVisibility(View.VISIBLE);
+      highScoreBanner.setVisibility(View.VISIBLE);
       myDbHelper.setHighScore(score);
     }
-    String highscore = myDbHelper.getHighScore();
-    highScore.setText(highscore);
+    highScore.setText(myDbHelper.getHighScore());
 
-    this.ButtonPlay = (Button) this.findViewById(R.id.button1);
-    this.ButtonPlay.setOnClickListener(new View.OnClickListener() {
+    Button buttonPlay = (Button) this.findViewById(R.id.button1);
+    buttonPlay.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
-          try {
-
-            mp = MediaPlayer.create(GameOver.this, R.raw.bub_pop);
-            if (myDbHelper.getisSound().equals("1")) {
-              mp.setVolume(0, 1);
-            } else {
-              mp.setVolume(0, 0);
-            }
-            mp.setOnCompletionListener(new OnCompletionListener() {
-
-              @Override
-              public void onCompletion(MediaPlayer mp) {
-                // TODO Auto-generated method stub
-                mp.release();
-              }
-
-            });
-            mp.start();
-
-            Intent quickplaypage = new Intent(GameOver.this, QuickPlay.class);
-            startActivity(quickplaypage);
-            finish();
-            played++;
-            myDbHelper.setTimesPlayed(Integer.toString(played));
-          } catch (Exception e) {
+          mp = MediaPlayer.create(GameOver.this, R.raw.bub_pop);
+          if (myDbHelper.getisSound().equals("1")) {
+            mp.setVolume(0, 1);
+          } else {
+            mp.setVolume(0, 0);
           }
+          mp.setOnCompletionListener(new OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+              mp.release();
+            }
+
+          });
+          mp.start();
+
+          Intent quickPlayPage = new Intent(GameOver.this, QuickPlay.class);
+          startActivity(quickPlayPage);
+          finish();
+          played++;
+          myDbHelper.setTimesPlayed(Integer.toString(played));
         }
       }
     });
@@ -109,12 +90,7 @@ public class GameOver extends Activity {
     } catch (IOException ioe) {
       throw new Error("Unable to create database");
     }
-    try {
-      myDbHelper.openDataBase();
-
-    } catch (SQLException sqle) {
-      throw sqle;
-    }
+    myDbHelper.openDataBase();
     super.onResume();
   }
 
@@ -133,15 +109,6 @@ public class GameOver extends Activity {
         this.finish();
       }
     }
-  }
-
-  public boolean isOnline() {
-    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo netInfo = cm.getActiveNetworkInfo();
-    if (netInfo != null && netInfo.isConnected()) {
-      return true;
-    }
-    return false;
   }
 
 }
