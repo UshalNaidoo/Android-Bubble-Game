@@ -20,8 +20,8 @@ import com.goodguygames.bubblegame.util.DataBaseHelper;
 import java.io.IOException;
 
 public class QuickPlay extends Activity {
-  private TextView scoreTxt;
-  private DataBaseHelper myDbHelper;
+  private static TextView scoreTxt;
+  private static DataBaseHelper myDbHelper;
   private MediaPlayer mp;
 
   private MediaPlayer mp1;
@@ -57,6 +57,7 @@ public class QuickPlay extends Activity {
     LivesLevel.setProgressDrawable(getResources().getDrawable(R.drawable.life_bar));
     LivesLevel.setMax(5);
     LivesLevel.setProgress(3);
+    MainGamePanel.score = 0;
 
     if (myDbHelper.getisSound().equals("1")) {
       isMute = false;
@@ -172,10 +173,10 @@ public class QuickPlay extends Activity {
     });
   }
 
-  public void popSound() {
-    QuickPlay.this.runOnUiThread(new Runnable() {
+  public static void popSound() {
+    ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
-        final MediaPlayer mp2 = MediaPlayer.create(QuickPlay.this, R.raw.bub_pop);
+        final MediaPlayer mp2 = MediaPlayer.create(QuickPlay.getAppContext(), R.raw.bub_pop);
         if (myDbHelper.getisSound().equals("1")) {
           mp2.setVolume(0, 1);
         } else {
@@ -195,10 +196,10 @@ public class QuickPlay extends Activity {
     });
   }
 
-  public void setScore(final String txt) {
-    QuickPlay.this.runOnUiThread(new Runnable() {
+  public static void setScore(final String newScore) {
+    ((Activity)QuickPlay.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
-        scoreTxt.setText(txt);
+        scoreTxt.setText(newScore);
       }
     });
   }
@@ -249,7 +250,6 @@ public class QuickPlay extends Activity {
     if (requestCode == 1) {
       if (resultCode == RESULT_OK) {
         this.finish();
-
       }
     }
   }

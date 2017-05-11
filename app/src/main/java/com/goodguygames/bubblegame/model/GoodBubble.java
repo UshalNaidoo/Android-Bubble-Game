@@ -27,8 +27,9 @@ public class GoodBubble extends Bubble {
 
   @Override
   public void setTouched() {
-//    QuickPlay.popSound();
-//    QuickPlay.setPoints(Integer.toString(MainGamePanel.score++));
+    QuickPlay.popSound();
+    MainGamePanel.score += 1;
+    QuickPlay.setScore(Integer.toString(MainGamePanel.score));
     resetBubblePosition();
   }
 
