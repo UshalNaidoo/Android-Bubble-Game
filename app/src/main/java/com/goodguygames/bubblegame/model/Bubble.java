@@ -85,11 +85,11 @@ public abstract class Bubble {
   }
 
   public boolean isBubbleOnScreen() {
-    if (this.getVelocity().getyDirection() == Direction.UP.value
+    if (Direction.UP.equals(this.getVelocity().getDirection())
         && this.getY() - this.getBitmap().getHeight() / 2 <= 0) {
       return false;
     }
-    else if (this.getVelocity().getyDirection() == Direction.DOWN.value
+    else if (Direction.DOWN.equals(this.getVelocity().getDirection())
         && this.getY() - this.getBitmap().getHeight() / 2 >= MainGamePanel.screenHeight) {
       return false;
     }
@@ -100,7 +100,12 @@ public abstract class Bubble {
    * Method which updates the droid's internal state every tick
    */
   public void moveBubble() {
-    y += (velocity.getYv() * velocity.getyDirection());
+    if (Direction.DOWN.equals(velocity.getDirection()) || Direction.UP.equals(velocity.getDirection())) {
+      y += (velocity.getVerticalVelocity() * velocity.getDirection().value);
+    }
+    else if (Direction.LEFT.equals(velocity.getDirection()) || Direction.RIGHT.equals(velocity.getDirection())) {
+      x += (velocity.getHorizontalVelocity() * velocity.getDirection().value);
+    }
 
     if (!isBubbleOnScreen()) {
       bubbleOutOfView();

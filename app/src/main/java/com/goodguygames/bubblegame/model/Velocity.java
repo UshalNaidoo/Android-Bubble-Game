@@ -7,43 +7,43 @@ import java.util.Random;
 
 public class Velocity {
 
-  private float yv = 1;
-  private float xv = 1;
-  private int yDirection;
+  private float verticalVelocity = 1;
+  private float horizontalVelocity = 1;
+  private Direction direction;
 
+  //TODO how will horizontal bubbles work
   public Velocity(int speed, Direction direction) {
     Random ran = new Random();
-    int spd = ran.nextInt(2) + 3 + speed;
-    this.setyDirection(direction.value);
-    this.yv = spd;
+    this.setDirection(direction);
+    this.setVerticalVelocity(ran.nextInt(2) + 3 + speed);
   }
 
-  public Velocity(float xv, float yv) {
-    this.yv = yv;
+  public float getHorizontalVelocity() {
+    return horizontalVelocity;
   }
 
-  public void setXv(float xv) {
-    this.xv = xv;
+  public void setHorizontalVelocity(float horizontalVelocity) {
+    this.horizontalVelocity = horizontalVelocity;
   }
 
-  public float getYv() {
-    return yv;
+  public float getVerticalVelocity() {
+    return verticalVelocity;
   }
 
-  public void setYv(float yv) {
-    this.yv = yv;
+  public void setVerticalVelocity(float verticalVelocity) {
+    this.verticalVelocity = verticalVelocity;
   }
 
-  public int getyDirection() {
-    return yDirection;
+  public Direction getDirection() {
+    return direction;
   }
 
-  public void setyDirection(int yDirection) {
-    this.yDirection = yDirection;
+  public void setDirection(Direction direction) {
+    this.direction = direction;
   }
 
-  public void toggleYDirection() {
-    yDirection = yDirection * -1;
+  public void toggleVerticalDirection() {
+    direction = Direction.DOWN.equals(direction)? Direction.UP : Direction.DOWN;
   }
 
 }

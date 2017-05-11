@@ -42,8 +42,7 @@ public class PoisonBubble extends Bubble {
 
   @Override
   public void resetBubblePosition() {
-    //TODO change that velocity direction is an int and not a Direction
-    velocity.setyDirection(velocity.getyDirection() == 1 ? -1 : 1);
+    velocity.toggleVerticalDirection();
   }
 
   @Override
