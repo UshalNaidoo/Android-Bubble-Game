@@ -2,7 +2,6 @@ package com.goodguygames.bubblegame.full;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.SQLException;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import com.goodguygames.bubblegame.util.DataBaseHelper;
 
 import java.io.IOException;
 
-public class Productions extends Activity {
+public class SplashScreen extends Activity {
 
   protected boolean _active = true;
   protected int _splashTime = 4000;

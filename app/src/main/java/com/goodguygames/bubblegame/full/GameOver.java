@@ -28,7 +28,7 @@ public class GameOver extends Activity {
     setContentView(R.layout.gameover);
     TextView yourScore = (TextView) findViewById(R.id.yourscore);
     String score = getIntent().getStringExtra("score");
-    yourScore.setText(score);
+    yourScore.setText(getIntent().getStringExtra("score"));
     TextView highScoreBanner = (TextView) findViewById(R.id.HighScoreTV);
     highScoreBanner.setVisibility(View.GONE);
     TextView highScore = (TextView) findViewById(R.id.highscore);
@@ -63,8 +63,7 @@ public class GameOver extends Activity {
             }
           });
           mp.start();
-
-          Intent quickPlayPage = new Intent(GameOver.this, QuickPlay.class);
+          Intent quickPlayPage = new Intent(GameOver.this, GamePanel.class);
           startActivity(quickPlayPage);
           finish();
           played++;
@@ -96,10 +95,8 @@ public class GameOver extends Activity {
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (requestCode == 1) {
-      if (resultCode == RESULT_OK) {
-        this.finish();
-      }
+    if (requestCode == 1 && resultCode == RESULT_OK) {
+      finish();
     }
   }
 

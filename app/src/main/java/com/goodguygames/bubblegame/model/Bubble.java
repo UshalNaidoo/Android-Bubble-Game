@@ -2,23 +2,17 @@ package com.goodguygames.bubblegame.model;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import com.goodguygames.bubblegame.full.MainGamePanel;
+import com.goodguygames.bubblegame.full.GameScene;
 
 public abstract class Bubble {
 
-  private Bitmap bitmap;        // the actual bitmap
-  private int x;                        // the X coordinate
-  private int y;                        // the Y coordinate
-  private Velocity velocity;        // the velocity with its directions
+  private Bitmap bitmap;
+  private int xCoordinate;
+  private int yCoordinate;
+  private Velocity velocity;
   private int points;
 
-
   public Bubble() {
-  }
-
-  public Bubble(int x, int y) {
-    this.setX(x);
-    this.setY(y);
   }
 
   public Velocity getVelocity() {
@@ -37,20 +31,20 @@ public abstract class Bubble {
     this.bitmap = bitmap;
   }
 
-  public int getX() {
-    return x;
+  public int getxCoordinate() {
+    return xCoordinate;
   }
 
-  public void setX(int x) {
-    this.x = x;
+  public void setxCoordinate(int xCoordinate) {
+    this.xCoordinate = xCoordinate;
   }
 
-  public int getY() {
-    return y;
+  public int getyCoordinate() {
+    return yCoordinate;
   }
 
-  public void setY(int y) {
-    this.y = y;
+  public void setyCoordinate(int yCoordinate) {
+    this.yCoordinate = yCoordinate;
   }
 
   public int getPoints() {
@@ -76,8 +70,8 @@ public abstract class Bubble {
    * @param eventY - the event's Y coordinate
    */
   public void handleActionDown(int eventX, int eventY) {
-    if (eventY >= (y - bitmap.getHeight() / 2) && (eventY <= (y + bitmap.getHeight() / 2) + 30)) {
-      if (eventX >= (x - bitmap.getWidth() / 2) && (eventX <= (x + bitmap.getWidth() / 2))) {
+    if (eventY >= (yCoordinate - bitmap.getHeight() / 2) && (eventY <= (yCoordinate + bitmap.getHeight() / 2) + 30)) {
+      if (eventX >= (xCoordinate - bitmap.getWidth() / 2) && (eventX <= (xCoordinate + bitmap.getWidth() / 2))) {
         // droid touched
         setTouched();
       }
@@ -86,11 +80,11 @@ public abstract class Bubble {
 
   public boolean isBubbleOnScreen() {
     if (Direction.UP.equals(this.getVelocity().getDirection())
-        && this.getY() - this.getBitmap().getHeight() / 2 <= 0) {
+        && this.getyCoordinate() - this.getBitmap().getHeight() / 2 <= 0) {
       return false;
     }
     else if (Direction.DOWN.equals(this.getVelocity().getDirection())
-        && this.getY() - this.getBitmap().getHeight() / 2 >= MainGamePanel.screenHeight) {
+        && this.getyCoordinate() - this.getBitmap().getHeight() / 2 >= GameScene.screenHeight) {
       return false;
     }
     return true;
@@ -101,10 +95,10 @@ public abstract class Bubble {
    */
   public void moveBubble() {
     if (Direction.DOWN.equals(velocity.getDirection()) || Direction.UP.equals(velocity.getDirection())) {
-      y += (velocity.getVerticalVelocity() * velocity.getDirection().value);
+      yCoordinate += (velocity.getVerticalVelocity() * velocity.getDirection().value);
     }
     else if (Direction.LEFT.equals(velocity.getDirection()) || Direction.RIGHT.equals(velocity.getDirection())) {
-      x += (velocity.getHorizontalVelocity() * velocity.getDirection().value);
+      xCoordinate += (velocity.getHorizontalVelocity() * velocity.getDirection().value);
     }
 
     if (!isBubbleOnScreen()) {
@@ -118,11 +112,11 @@ public abstract class Bubble {
   }
 
   public void resetBubblePosition() {
-    x = 0;
+    xCoordinate = 0;
   }
 
   public void draw(Canvas canvas) {
-    canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
+    canvas.drawBitmap(bitmap, xCoordinate - (bitmap.getWidth() / 2), yCoordinate - (bitmap.getHeight() / 2), null);
   }
 
 }

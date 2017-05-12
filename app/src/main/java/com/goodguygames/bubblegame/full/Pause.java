@@ -1,6 +1,5 @@
 package com.goodguygames.bubblegame.full;
 
-
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;

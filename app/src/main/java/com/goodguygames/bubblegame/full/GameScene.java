@@ -20,39 +20,39 @@ import com.goodguygames.bubblegame.model.GoodBubble;
 import com.goodguygames.bubblegame.model.Heart;
 import com.goodguygames.bubblegame.model.PoisonBubble;
 
-public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback {
+public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
 
   public static int score = 0;
   public static int maxLives = 10;
   public static int lives = 3;
-  public static MainThread thread;
+  public static GameThread thread;
   private Bubble goodBubble;
   private Bubble heart;
   private Bubble poisonBubble;
   public static int screenHeight = 0;
   public static int screenWidth = 0;
 
-  public MainGamePanel(Context context) {
+  public GameScene(Context context) {
     super(context);
     getHolder().addCallback(this);
     setUpScene();
-    thread = new MainThread(getHolder(), this);
+    thread = new GameThread(getHolder(), this);
     setFocusable(true);
   }
 
-  public MainGamePanel(Context context, AttributeSet attrs) {
+  public GameScene(Context context, AttributeSet attrs) {
     super(context, attrs);
     getHolder().addCallback(this);
     setUpScene();
-    thread = new MainThread(getHolder(), this);
+    thread = new GameThread(getHolder(), this);
     setFocusable(true);
   }
 
-  public MainGamePanel(Context context, AttributeSet attrs, int defStyle) {
+  public GameScene(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
     getHolder().addCallback(this);
     setUpScene();
-    thread = new MainThread(getHolder(), this);
+    thread = new GameThread(getHolder(), this);
     setFocusable(true);
   }
 
@@ -79,7 +79,7 @@ public class MainGamePanel extends SurfaceView implements SurfaceHolder.Callback
   @Override
   public void surfaceCreated(SurfaceHolder holder) {
     if (thread.getState() == Thread.State.TERMINATED) {
-      thread = new MainThread(getHolder(), this);
+      thread = new GameThread(getHolder(), this);
       thread.setRunning(true);
       thread.start();
     } else {

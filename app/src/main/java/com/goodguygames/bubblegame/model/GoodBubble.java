@@ -5,8 +5,8 @@ package com.goodguygames.bubblegame.model;
 
 import android.graphics.BitmapFactory;
 
-import com.goodguygames.bubblegame.full.MainGamePanel;
-import com.goodguygames.bubblegame.full.QuickPlay;
+import com.goodguygames.bubblegame.full.GameScene;
+import com.goodguygames.bubblegame.full.GamePanel;
 import com.goodguygames.bubblegame.full.R;
 
 import java.util.Random;
@@ -18,7 +18,7 @@ public class GoodBubble extends Bubble {
 
   public GoodBubble() {
     super();
-    this.setBitmap(BitmapFactory.decodeResource(QuickPlay.getAppContext().getResources(), R.drawable.bubble));
+    this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.bubble));
 
     velocity = new Velocity(1, Direction.UP);
     this.setVelocity(velocity);
@@ -27,23 +27,23 @@ public class GoodBubble extends Bubble {
 
   @Override
   public void setTouched() {
-    QuickPlay.popSound();
-    MainGamePanel.score += 1;
-    QuickPlay.setScore(Integer.toString(MainGamePanel.score));
+    GamePanel.popSound();
+    GameScene.score += 1;
+    GamePanel.setScore(Integer.toString(GameScene.score));
     resetBubblePosition();
   }
 
   @Override
   public void resetBubblePosition() {
-    this.setY(MainGamePanel.screenHeight);
+    this.setyCoordinate(GameScene.screenHeight);
     random = new Random();
-    this.setX(random.nextInt(MainGamePanel.screenWidth));
+    this.setxCoordinate(random.nextInt(GameScene.screenWidth));
   }
 
   @Override
   public void bubbleOutOfView() {
-    QuickPlay.bonkSound();
-    QuickPlay.loseALife();
+    GamePanel.bonkSound();
+    GamePanel.loseALife();
     resetBubblePosition();
   }
 

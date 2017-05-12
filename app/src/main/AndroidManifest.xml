@@ -11,7 +11,7 @@
   <application
       android:icon="@drawable/ic_launcher"
       android:label="POP">
-    <activity android:name="Productions"
+    <activity android:name=".SplashScreen"
               android:screenOrientation="portrait"
               android:theme="@android:style/Theme.NoTitleBar">
       <intent-filter>
@@ -21,7 +21,7 @@
     </activity>
 
 
-    <activity android:name=".Main"
+    <activity android:name=".MainMenu"
               android:screenOrientation="portrait"
               android:theme="@android:style/Theme.NoTitleBar">
       <intent-filter>
@@ -30,7 +30,7 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".QuickPlay" android:screenOrientation="portrait"
+    <activity android:name=".GamePanel" android:screenOrientation="portrait"
               android:theme="@android:style/Theme.NoTitleBar"/>
     <activity android:name=".GameOver" android:screenOrientation="portrait"
               android:theme="@android:style/Theme.NoTitleBar"/>

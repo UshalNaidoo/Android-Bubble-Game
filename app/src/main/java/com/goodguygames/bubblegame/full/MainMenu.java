@@ -1,6 +1,5 @@
 package com.goodguygames.bubblegame.full;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -17,7 +16,7 @@ import com.goodguygames.bubblegame.util.DataBaseHelper;
 
 import java.io.IOException;
 
-public class Main extends Activity {
+public class MainMenu extends Activity {
 
   private MediaPlayer mediaPlayer;
   private DataBaseHelper dataBaseHelper;
@@ -49,7 +48,7 @@ public class Main extends Activity {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
-          mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
+          mediaPlayer = MediaPlayer.create(MainMenu.this, R.raw.bub_pop);
           mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -58,14 +57,12 @@ public class Main extends Activity {
           });
           mediaPlayer.start();
 
-          startActivity(new Intent(Main.this, QuickPlay.class));
+          startActivity(new Intent(MainMenu.this, GamePanel.class));
           played++;
           dataBaseHelper.setTimesPlayed(Integer.toString(played));
         }
       }
     });
-
-
   }
 
   @Override
@@ -84,7 +81,6 @@ public class Main extends Activity {
     }
 
     dataBaseHelper.openDataBase();
-
     highScoreTextView = (TextView) findViewById(R.id.textView1);
     highScoreTextView.setText(getResources().getString(R.string.high_score) + dataBaseHelper.getHighScore());
 
@@ -110,7 +106,7 @@ public class Main extends Activity {
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-      mediaPlayer = MediaPlayer.create(Main.this, R.raw.bub_pop);
+      mediaPlayer = MediaPlayer.create(MainMenu.this, R.raw.bub_pop);
       mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
