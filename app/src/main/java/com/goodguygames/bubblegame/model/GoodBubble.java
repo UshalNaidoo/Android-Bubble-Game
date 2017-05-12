@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 
 import com.goodguygames.bubblegame.demo.GameScene;
 import com.goodguygames.bubblegame.demo.GamePanel;
+import com.goodguygames.bubblegame.demo.MainMenu;
 import com.goodguygames.bubblegame.demo.R;
 import com.goodguygames.bubblegame.physics.Direction;
 import com.goodguygames.bubblegame.physics.Position;
@@ -21,7 +22,7 @@ public class GoodBubble extends Bubble {
 
   public GoodBubble() {
     super();
-    this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.bubble));
+    this.setBitmap(BitmapFactory.decodeResource(MainMenu.getAppContext().getResources(), R.drawable.bubble));
     this.setVelocity(new Velocity(Direction.UP));
 
     random = new Random();

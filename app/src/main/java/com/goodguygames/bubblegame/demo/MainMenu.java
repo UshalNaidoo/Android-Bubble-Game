@@ -1,6 +1,9 @@
 package com.goodguygames.bubblegame.demo;
 
+import static com.goodguygames.bubblegame.util.AnimationHelper.getButtonAnimation;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -19,6 +22,11 @@ public class MainMenu extends Activity {
   private DataBaseHelper dataBaseHelper;
   private int played;
   private TextView highScoreTextView;
+  private static Context context;
+
+  public static Context getAppContext() {
+    return MainMenu.context;
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,7 @@ public class MainMenu extends Activity {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.main);
+    MainMenu.context = this;
     dataBaseHelper = new DataBaseHelper(this);
     try {
       dataBaseHelper.createDataBase();
@@ -41,6 +50,9 @@ public class MainMenu extends Activity {
     highScoreTextView.setText(getResources().getString(R.string.high_score) + dataBaseHelper.getHighScore());
 
     Button buttonPlay = (Button) this.findViewById(R.id.button1);
+
+    buttonPlay.startAnimation(getButtonAnimation());
+
     buttonPlay.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {

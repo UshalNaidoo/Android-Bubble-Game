@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import com.goodguygames.bubblegame.demo.GameScene;
 import com.goodguygames.bubblegame.demo.GamePanel;
+import com.goodguygames.bubblegame.demo.MainMenu;
 import com.goodguygames.bubblegame.demo.R;
 import com.goodguygames.bubblegame.physics.Direction;
 import com.goodguygames.bubblegame.physics.Position;
@@ -17,7 +18,7 @@ public class Heart extends Bubble {
 
   public Heart() {
     super();
-    this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.heart_bub));
+    this.setBitmap(BitmapFactory.decodeResource(MainMenu.getAppContext().getResources(), R.drawable.heart_bub));
     this.setVelocity(new Velocity(Direction.DOWN));
 
     random = new Random();

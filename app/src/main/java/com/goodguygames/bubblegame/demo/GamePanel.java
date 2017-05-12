@@ -22,12 +22,10 @@ public class GamePanel extends Activity {
   private static TextView scoreTxt;
   private static DataBaseHelper myDbHelper;
   private static ProgressBar lifeBar;
-  private static Context context;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    GamePanel.context = this;
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.gamepanel);
@@ -63,14 +61,10 @@ public class GamePanel extends Activity {
     });
   }
 
-  public static Context getAppContext() {
-    return GamePanel.context;
-  }
-
   public static void bonkSound() {
-    ((Activity) GamePanel.getAppContext()).runOnUiThread(new Runnable() {
+    ((Activity) MainMenu.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
-        final MediaPlayer mp = MediaPlayer.create(GamePanel.getAppContext(), R.raw.bonk);
+        final MediaPlayer mp = MediaPlayer.create(MainMenu.getAppContext(), R.raw.bonk);
         mp.setOnCompletionListener(new OnCompletionListener() {
 
           @Override
@@ -85,9 +79,9 @@ public class GamePanel extends Activity {
   }
 
   public static void chimeSound() {
-    ((Activity) GamePanel.getAppContext()).runOnUiThread(new Runnable() {
+    ((Activity) MainMenu.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
-        final MediaPlayer mp1 = MediaPlayer.create(GamePanel.getAppContext(), R.raw.chime);
+        final MediaPlayer mp1 = MediaPlayer.create(MainMenu.getAppContext(), R.raw.chime);
         mp1.setOnCompletionListener(new OnCompletionListener() {
 
           @Override
@@ -102,9 +96,9 @@ public class GamePanel extends Activity {
   }
 
   public static void popSound() {
-    ((Activity) GamePanel.getAppContext()).runOnUiThread(new Runnable() {
+    ((Activity) MainMenu.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {scoreTxt.setText("Popped");
-        final MediaPlayer mp2 = MediaPlayer.create(GamePanel.getAppContext(), R.raw.bub_pop);
+        final MediaPlayer mp2 = MediaPlayer.create(MainMenu.getAppContext(), R.raw.bub_pop);
         mp2.setVolume(0,1);
         mp2.setOnCompletionListener(new OnCompletionListener() {
           @Override
@@ -119,7 +113,7 @@ public class GamePanel extends Activity {
   }
 
   public static void setScore(final String newScore) {
-    ((Activity) GamePanel.getAppContext()).runOnUiThread(new Runnable() {
+    ((Activity) MainMenu.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
         scoreTxt.setText(newScore);
       }
@@ -128,7 +122,7 @@ public class GamePanel extends Activity {
 
   public static void gainALife() {
     GameScene.lives = GameScene.lives == GameScene.maxLives ? GameScene.lives : GameScene.lives + 1;
-    ((Activity) GamePanel.getAppContext()).runOnUiThread(new Runnable() {
+    ((Activity) MainMenu.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
         lifeBar.setProgress(GameScene.lives);
       }
@@ -137,20 +131,20 @@ public class GamePanel extends Activity {
 
   public static void loseALife() {
     GameScene.lives -= 1;
-    ((Activity) GamePanel.getAppContext()).runOnUiThread(new Runnable() {
+    ((Activity) MainMenu.getAppContext()).runOnUiThread(new Runnable() {
       public void run() {
         lifeBar.setProgress(GameScene.lives);
       }
     });
 
     if (GameScene.lives == 0) {
-      Intent intent = new Intent(context, GameOver.class);
+      Intent intent = new Intent(MainMenu.getAppContext(), GameOver.class);
       intent.putExtra("score", Integer.toString(GameScene.score));
-      context.startActivity(intent);
+      MainMenu.getAppContext().startActivity(intent);
       if (GameScene.thread.isAlive()) {
         GameScene.thread.setRunning(false);
       }
-      ((Activity)getAppContext()).finish();
+      ((Activity)MainMenu.getAppContext()).finish();
     }
   }
 

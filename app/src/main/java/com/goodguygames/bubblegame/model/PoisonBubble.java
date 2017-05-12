@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import com.goodguygames.bubblegame.demo.GameOver;
 import com.goodguygames.bubblegame.demo.GameScene;
 import com.goodguygames.bubblegame.demo.GamePanel;
+import com.goodguygames.bubblegame.demo.MainMenu;
 import com.goodguygames.bubblegame.demo.R;
 import com.goodguygames.bubblegame.physics.Direction;
 import com.goodguygames.bubblegame.physics.Position;
@@ -23,7 +24,7 @@ public class PoisonBubble extends Bubble {
 
   public PoisonBubble() {
     super();
-    this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.skull_bub));
+    this.setBitmap(BitmapFactory.decodeResource(MainMenu.getAppContext().getResources(), R.drawable.skull_bub));
     velocity = new Velocity(Direction.UP);
     this.setVelocity(velocity);
     Random random = new Random();
@@ -33,13 +34,13 @@ public class PoisonBubble extends Bubble {
 
   @Override
   public void setTouched() {
-    Intent intent = new Intent(GamePanel.getAppContext(), GameOver.class);
+    Intent intent = new Intent(MainMenu.getAppContext(), GameOver.class);
     intent.putExtra("score", Integer.toString(GameScene.score));
-    GamePanel.getAppContext().startActivity(intent);
+    MainMenu.getAppContext().startActivity(intent);
     if (GameScene.thread.isAlive()) {
       GameScene.thread.setRunning(false);
     }
-    ((Activity) GamePanel.getAppContext()).finish();
+    ((Activity) MainMenu.getAppContext()).finish();
   }
 
   @Override
