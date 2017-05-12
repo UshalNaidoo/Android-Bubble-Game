@@ -1,7 +1,6 @@
 package com.goodguygames.bubblegame.demo;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -97,7 +96,7 @@ public class GamePanel extends Activity {
 
   public static void popSound() {
     ((Activity) MainMenu.getAppContext()).runOnUiThread(new Runnable() {
-      public void run() {scoreTxt.setText("Popped");
+      public void run() {
         final MediaPlayer mp2 = MediaPlayer.create(MainMenu.getAppContext(), R.raw.bub_pop);
         mp2.setVolume(0,1);
         mp2.setOnCompletionListener(new OnCompletionListener() {

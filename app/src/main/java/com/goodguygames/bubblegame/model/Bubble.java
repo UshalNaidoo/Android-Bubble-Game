@@ -55,11 +55,9 @@ public abstract class Bubble {
   public void handleActionDown(int eventX, int eventY) {
     int yCoordinate = this.getCurrentPosition().getyCoordinate();
     int xCoordinate = this.getCurrentPosition().getxCoordinate();
-    if (eventY >= (yCoordinate - bitmap.getHeight() / 2) && (eventY <= (yCoordinate + bitmap.getHeight() / 2) + 30)) {
-      if (eventX >= (xCoordinate - bitmap.getWidth() / 2) && (eventX <= (xCoordinate + bitmap.getWidth() / 2))) {
-        // droid touched
+    if (eventY >= (yCoordinate - bitmap.getHeight() / 2) && (eventY <= (yCoordinate + bitmap.getHeight() / 2) + 30) &&
+        eventX >= (xCoordinate - bitmap.getWidth() / 2) && (eventX <= (xCoordinate + bitmap.getWidth() / 2))) {
         setTouched();
-      }
     }
   }
 

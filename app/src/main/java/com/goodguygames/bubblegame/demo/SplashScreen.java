@@ -14,7 +14,7 @@ public class SplashScreen extends Activity {
   protected boolean _active = true;
   protected int _splashTime = 4000;
 
-  private MediaPlayer mp1;
+  private MediaPlayer mediaPlayer;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -23,9 +23,9 @@ public class SplashScreen extends Activity {
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.productions);
 
-    mp1 = MediaPlayer.create(this, R.raw.title);
-    mp1.setLooping(true);
-    mp1.start();
+    mediaPlayer = MediaPlayer.create(this, R.raw.title);
+    mediaPlayer.setLooping(true);
+    mediaPlayer.start();
 
     final ImageView splashImageView = (ImageView) findViewById(R.id.SplashImageView);
     splashImageView.setBackgroundResource(R.drawable.productiongif);
@@ -52,7 +52,7 @@ public class SplashScreen extends Activity {
           // do nothing
         } finally {
           finish();
-          mp1.release();
+          mediaPlayer.release();
           startActivity(new Intent("com.goodguygames.bubblegame.full.Main"));
         }
       }

@@ -1,16 +1,18 @@
 package com.goodguygames.bubblegame.demo;
 
-import java.io.IOException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
 import com.goodguygames.bubblegame.util.DataBaseHelper;
+
+import java.io.IOException;
 
 public class GameOver extends Activity {
 
@@ -79,6 +81,20 @@ public class GameOver extends Activity {
     super.onDestroy();
     myDbHelper.close();
     finish();
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+      Intent quickPlayPage = new Intent(GameOver.this, GamePanel.class);
+      startActivity(quickPlayPage);
+      finish();
+      played++;
+      myDbHelper.setTimesPlayed(Integer.toString(played));
+      return true;
+    }
+
+    return super.onKeyDown(keyCode, event);
   }
 
   @Override

@@ -8,6 +8,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import static com.goodguygames.bubblegame.util.AnimationHelper.getButtonAnimation;
+
 public class Pause extends Activity {
 
   private ImageView play;
@@ -20,6 +22,7 @@ public class Pause extends Activity {
     setContentView(R.layout.pausescreen);
 
     this.play = (ImageView) this.findViewById(R.id.imageView1);
+    play.startAnimation(getButtonAnimation());
     this.play.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
