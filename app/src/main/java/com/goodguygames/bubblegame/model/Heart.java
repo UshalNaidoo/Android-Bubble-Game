@@ -12,15 +12,13 @@ import com.goodguygames.bubblegame.physics.Position;
 import com.goodguygames.bubblegame.physics.Velocity;
 
 public class Heart extends Bubble {
-  private Velocity velocity;
   private Random random;
   private Position initialPosition;
 
   public Heart() {
     super();
     this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.heart_bub));
-    velocity = new Velocity(Direction.DOWN);
-    this.setVelocity(velocity);
+    this.setVelocity(new Velocity(Direction.DOWN));
 
     random = new Random();
     initialPosition = new Position(random.nextInt(GameScene.screenWidth), 0);

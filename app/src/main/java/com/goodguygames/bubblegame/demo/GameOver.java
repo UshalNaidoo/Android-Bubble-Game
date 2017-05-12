@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +15,6 @@ import com.goodguygames.bubblegame.util.DataBaseHelper;
 public class GameOver extends Activity {
 
   private DataBaseHelper myDbHelper;
-  private MediaPlayer mp;
   private int played;
 
   @Override
@@ -55,14 +52,6 @@ public class GameOver extends Activity {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
-          mp = MediaPlayer.create(GameOver.this, R.raw.bub_pop);
-          mp.setOnCompletionListener(new OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-              mp.release();
-            }
-          });
-          mp.start();
           Intent quickPlayPage = new Intent(GameOver.this, GamePanel.class);
           startActivity(quickPlayPage);
           finish();

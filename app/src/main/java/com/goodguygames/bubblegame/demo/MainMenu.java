@@ -2,8 +2,6 @@ package com.goodguygames.bubblegame.demo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,7 +16,6 @@ import java.io.IOException;
 
 public class MainMenu extends Activity {
 
-  private MediaPlayer mediaPlayer;
   private DataBaseHelper dataBaseHelper;
   private int played;
   private TextView highScoreTextView;
@@ -48,15 +45,6 @@ public class MainMenu extends Activity {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.button1)) {
-          mediaPlayer = MediaPlayer.create(MainMenu.this, R.raw.bub_pop);
-          mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-              mp.release();
-            }
-          });
-          mediaPlayer.start();
-
           startActivity(new Intent(MainMenu.this, GamePanel.class));
           played++;
           dataBaseHelper.setTimesPlayed(Integer.toString(played));
@@ -106,14 +94,6 @@ public class MainMenu extends Activity {
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-      mediaPlayer = MediaPlayer.create(MainMenu.this, R.raw.bub_pop);
-      mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-          mp.release();
-        }
-      });
-      mediaPlayer.start();
       finish();
       return true;
     }

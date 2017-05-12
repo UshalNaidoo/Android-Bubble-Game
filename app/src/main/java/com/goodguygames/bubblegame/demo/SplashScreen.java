@@ -9,10 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.goodguygames.bubblegame.util.DataBaseHelper;
-
-import java.io.IOException;
-
 public class SplashScreen extends Activity {
 
   protected boolean _active = true;
@@ -26,15 +22,6 @@ public class SplashScreen extends Activity {
     requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     setContentView(R.layout.productions);
-
-    DataBaseHelper myDbHelper = new DataBaseHelper(this);
-    try {
-      myDbHelper.createDataBase();
-    } catch (IOException ioe) {
-      throw new Error("Unable to create database");
-    }
-
-    myDbHelper.openDataBase();
 
     mp1 = MediaPlayer.create(this, R.raw.title);
     mp1.setLooping(true);

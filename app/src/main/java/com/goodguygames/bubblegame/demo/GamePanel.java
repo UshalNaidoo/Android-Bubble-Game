@@ -21,7 +21,6 @@ import java.io.IOException;
 public class GamePanel extends Activity {
   private static TextView scoreTxt;
   private static DataBaseHelper myDbHelper;
-  private MediaPlayer mp;
   private static ProgressBar lifeBar;
   private static Context context;
 
@@ -57,16 +56,6 @@ public class GamePanel extends Activity {
       @Override
       public void onClick(View view) {
         if (view == findViewById(R.id.ImageView01)) {
-          mp = MediaPlayer.create(GamePanel.this, R.raw.bub_pop);
-          mp.setOnCompletionListener(new OnCompletionListener() {
-
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-              mp.release();
-            }
-
-          });
-          mp.start();
           Intent scorePage = new Intent(GamePanel.this, Pause.class);
           startActivityForResult(scorePage, 1);
         }
@@ -114,8 +103,9 @@ public class GamePanel extends Activity {
 
   public static void popSound() {
     ((Activity) GamePanel.getAppContext()).runOnUiThread(new Runnable() {
-      public void run() {
+      public void run() {scoreTxt.setText("Popped");
         final MediaPlayer mp2 = MediaPlayer.create(GamePanel.getAppContext(), R.raw.bub_pop);
+        mp2.setVolume(0,1);
         mp2.setOnCompletionListener(new OnCompletionListener() {
           @Override
           public void onCompletion(MediaPlayer mp) {
@@ -174,18 +164,7 @@ public class GamePanel extends Activity {
   @Override
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-      mp = MediaPlayer.create(GamePanel.this, R.raw.bub_pop);
-      mp.setOnCompletionListener(new OnCompletionListener() {
-
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-          mp.release();
-        }
-
-      });
-      mp.start();
-      Intent scorePage = new Intent(GamePanel.this, Pause.class);
-      startActivityForResult(scorePage, 1);
+      startActivityForResult(new Intent(GamePanel.this, Pause.class), 1);
       return true;
     }
 
@@ -194,10 +173,8 @@ public class GamePanel extends Activity {
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == 1) {
-      if (resultCode == RESULT_OK) {
-        this.finish();
-      }
+    if (requestCode == 1 && resultCode == RESULT_OK) {
+      this.finish();
     }
   }
 

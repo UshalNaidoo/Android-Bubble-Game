@@ -96,7 +96,6 @@ public class GameScene extends SurfaceView implements SurfaceHolder.Callback {
   @Override
   public boolean onTouchEvent(MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-      // delegating event handling to the droid
       if (goodBubble != null) {
         goodBubble.handleActionDown((int) event.getX(), (int) event.getY());
       }

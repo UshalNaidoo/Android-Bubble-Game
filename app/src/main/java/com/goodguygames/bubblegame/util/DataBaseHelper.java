@@ -122,9 +122,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
   public void Exists() {
     Cursor cursor = this.myDataBase.rawQuery("SELECT * from user_Table", null);
-    if (cursor.moveToFirst()) {
-      // record exists
-    } else {
+    if (!cursor.moveToFirst()) {
       // record not found
       String sql = "INSERT INTO user_Table (highscore) VALUES('0')";
       this.myDataBase.execSQL(sql);

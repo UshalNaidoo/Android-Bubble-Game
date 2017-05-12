@@ -16,16 +16,13 @@ import java.util.Random;
 
 public class GoodBubble extends Bubble {
 
-  private Velocity velocity;
   private Position initialPosition;
   private Random random;
 
   public GoodBubble() {
     super();
     this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.bubble));
-
-    velocity = new Velocity(Direction.UP);
-    this.setVelocity(velocity);
+    this.setVelocity(new Velocity(Direction.UP));
 
     random = new Random();
     initialPosition = new Position(random.nextInt(GameScene.screenWidth), GameScene.screenHeight);
@@ -34,9 +31,9 @@ public class GoodBubble extends Bubble {
 
   @Override
   public void setTouched() {
-    GamePanel.popSound();
     GameScene.score += 1;
     GamePanel.setScore(Integer.toString(GameScene.score));
+    GamePanel.popSound();
     resetBubblePosition();
   }
 

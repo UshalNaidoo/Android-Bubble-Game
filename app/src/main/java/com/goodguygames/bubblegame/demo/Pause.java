@@ -1,8 +1,6 @@
 package com.goodguygames.bubblegame.demo;
 
 import android.app.Activity;
-import android.media.MediaPlayer;
-import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -13,7 +11,6 @@ import android.widget.ImageView;
 public class Pause extends Activity {
 
   private ImageView play;
-  private MediaPlayer mp;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -28,16 +25,6 @@ public class Pause extends Activity {
       public void onClick(View view) {
         if (view == findViewById(R.id.imageView1)) {
           play.setImageResource(R.drawable.playpressed);
-          mp = MediaPlayer.create(Pause.this, R.raw.bub_pop);
-          mp.setOnCompletionListener(new OnCompletionListener() {
-
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-              mp.release();
-            }
-
-          });
-          mp.start();
           finish();
         }
       }

@@ -20,16 +20,14 @@ import java.util.Random;
 public class PoisonBubble extends Bubble {
 
   private Velocity velocity;
-  private Random random;
-  private Position initialPosition;
 
   public PoisonBubble() {
     super();
     this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.skull_bub));
     velocity = new Velocity(Direction.UP);
     this.setVelocity(velocity);
-    random = new Random();
-    initialPosition = new Position(random.nextInt(GameScene.screenWidth), GameScene.screenHeight);
+    Random random = new Random();
+    Position initialPosition = new Position(random.nextInt(GameScene.screenWidth), GameScene.screenHeight);
     this.setCurrentPosition(initialPosition);
   }
 
