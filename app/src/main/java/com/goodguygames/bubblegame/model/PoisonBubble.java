@@ -7,10 +7,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 
-import com.goodguygames.bubblegame.full.GameOver;
-import com.goodguygames.bubblegame.full.GameScene;
-import com.goodguygames.bubblegame.full.GamePanel;
-import com.goodguygames.bubblegame.full.R;
+import com.goodguygames.bubblegame.demo.GameOver;
+import com.goodguygames.bubblegame.demo.GameScene;
+import com.goodguygames.bubblegame.demo.GamePanel;
+import com.goodguygames.bubblegame.demo.R;
+import com.goodguygames.bubblegame.physics.Direction;
+import com.goodguygames.bubblegame.physics.Position;
+import com.goodguygames.bubblegame.physics.Velocity;
 
 import java.util.Random;
 
@@ -18,15 +21,16 @@ public class PoisonBubble extends Bubble {
 
   private Velocity velocity;
   private Random random;
+  private Position initialPosition;
 
   public PoisonBubble() {
     super();
     this.setBitmap(BitmapFactory.decodeResource(GamePanel.getAppContext().getResources(), R.drawable.skull_bub));
-    velocity = new Velocity(1, Direction.UP);
+    velocity = new Velocity(Direction.UP);
     this.setVelocity(velocity);
-    this.setyCoordinate(GameScene.screenHeight);
     random = new Random();
-    this.setxCoordinate(random.nextInt(GameScene.screenWidth));
+    initialPosition = new Position(random.nextInt(GameScene.screenWidth), GameScene.screenHeight);
+    this.setCurrentPosition(initialPosition);
   }
 
   @Override

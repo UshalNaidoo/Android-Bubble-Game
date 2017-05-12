@@ -3,7 +3,7 @@ package com.goodguygames.bubblegame.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import com.goodguygames.bubblegame.full.GamePanel;
+import com.goodguygames.bubblegame.demo.GamePanel;
 
 public class Utilities {
 

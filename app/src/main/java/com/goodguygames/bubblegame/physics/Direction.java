@@ -1,10 +1,10 @@
-package com.goodguygames.bubblegame.model;
+package com.goodguygames.bubblegame.physics;
 
 public enum Direction {
   UP(-1),
   DOWN(1),
-  LEFT(-10),
-  RIGHT(10);
+  LEFT(-1),
+  RIGHT(1);
 
   public int value;
 

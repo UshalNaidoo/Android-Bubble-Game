@@ -1,4 +1,4 @@
-package com.goodguygames.bubblegame.full;
+package com.goodguygames.bubblegame.demo;
 
 import java.io.IOException;
 
