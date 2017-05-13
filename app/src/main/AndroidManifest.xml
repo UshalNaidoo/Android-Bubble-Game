@@ -25,7 +25,7 @@
               android:screenOrientation="portrait"
               android:theme="@android:style/Theme.NoTitleBar">
       <intent-filter>
-        <action android:name="com.goodguygames.bubblegame.full.Main"/>
+        <action android:name="com.goodguygames.bubblegame.demo.MainMenu"/>
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>

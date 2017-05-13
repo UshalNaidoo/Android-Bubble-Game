@@ -53,7 +53,7 @@ public class SplashScreen extends Activity {
         } finally {
           finish();
           mediaPlayer.release();
-          startActivity(new Intent("com.goodguygames.bubblegame.full.Main"));
+          startActivity(new Intent("com.goodguygames.bubblegame.demo.MainMenu"));
         }
       }
     };
